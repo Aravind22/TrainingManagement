@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,7 @@ public class EmployeeController {
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
 	public ModelAndView ShowAddEmployee() {
 		EmployeeDto empDto = new EmployeeDto();
+		empDto.setDisabled("notdisabled");
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("addEmployee");
 		mv.addObject("employee",empDto);
@@ -36,20 +38,28 @@ public class EmployeeController {
 	public String addEmployee(@ModelAttribute(value = "employee") 
 	@Validated EmployeeDto employeeDto,BindingResult rslt, RedirectAttributes redirectAttributes) {
 		EmployeeDto empDto = new EmployeeDto();
-		empDto = empService.addEmployee(employeeDto);
-		String sucessMessage = empDto.getEmpName() + " added Successfully!";
-//		if(employeeDto.getEmpId())
-//		ModelAndView modelAndView = new ModelAndView();
-//		modelAndView.setViewName("employeeHome");
-		redirectAttributes.addAttribute("employeeAdded", sucessMessage);
+		String sucessMessage = null;
+		if(employeeDto.getDisabled().equals("disabled")) {
+			empDto = empService.addEmployee(employeeDto);
+			sucessMessage = empDto.getEmpName() + " updated Successfully!";		
+			EmployeeDto data = empService.getEmployeeById(employeeDto.getEmpId());
+			empDto = empService.addEmployee(employeeDto);
+		}
+		else {
+			empDto = empService.addEmployee(employeeDto);
+			sucessMessage = empDto.getEmpName() + " created Successfully!";
+		}
+		
+		redirectAttributes.addFlashAttribute("employeeAdded", sucessMessage);
 		return "redirect:list";
 		
 	}
+	
 //	EmpList
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView getAllEmployee() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("employeeHome");
+		mv.setViewName("employeeList");
 		mv.addObject("employeeList",empService.getAllEmployees());
 		return mv;
 	}
@@ -58,15 +68,23 @@ public class EmployeeController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView getEmployeeById(@RequestParam long empId) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("addEmployee");
-		modelAndView.addObject("employee", empService.getEmployeeById(empId));
+		modelAndView.setViewName("updateEmployee");
+		EmployeeDto data = empService.getEmployeeById(empId);
+		data.setDisabled("disabled");
+		modelAndView.addObject("employee", data);
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+	public String deleteByEmployeeId(@PathVariable long id) {
+		empService.deleteByEmployeeId(id);
+		return "redirect:/employee/list";
 	}
 	
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public ModelAndView getHome() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("employeeHome");
+		mv.setViewName("employeeList");
 		System.out.println(empService.getAllEmployees());
 		mv.addObject("employeeList",empService.getAllEmployees());
 		return mv;

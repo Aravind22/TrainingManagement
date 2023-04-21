@@ -17,7 +17,7 @@ public class HomeController {
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public ModelAndView homePage() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("employeeHome");
+		mv.setViewName("employeeList");
 		System.out.println(empService.getAllEmployees());
 		mv.addObject("employeeList",empService.getAllEmployees());
 		return mv;

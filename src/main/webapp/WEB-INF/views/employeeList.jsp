@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="mvc" %>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -12,7 +11,6 @@
 	<title>Training management</title>
  </head>
 <body>
-	
 	<div class="container">
 	<h1 align="center">Welcome to Training management</h1>
 	<h4 align="right"><a href="<c:url value="/employee/add" />">Add Employee</a> </h4>

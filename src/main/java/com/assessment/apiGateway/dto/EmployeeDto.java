@@ -4,7 +4,18 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 @Component
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Getter
+@Setter
 public class EmployeeDto {
 
 	@NotNull(message = "Employee ID can't be null")
@@ -12,22 +23,7 @@ public class EmployeeDto {
 	
 	@NotNull(message = "Employee name can't be null")
 	private String empName;
-
-	public long getEmpId() {
-		return empId;
-	}
-
-	public void setEmpId(long empId) {
-		this.empId = empId;
-	}
-
-	public String getEmpName() {
-		return empName;
-	}
-
-	public void setEmpName(String empName) {
-		this.empName = empName;
-	}
 	
-	
+	private String disabled;
+
 }

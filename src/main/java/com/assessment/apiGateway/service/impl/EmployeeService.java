@@ -39,4 +39,8 @@ public class EmployeeService {
 		return empConverter.convertToDto(emp);
 	}
 	
+	public void deleteByEmployeeId(long id) {
+		empDao.deleteById(id);
+	}
+	
 }

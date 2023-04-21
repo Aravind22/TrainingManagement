@@ -22,10 +22,10 @@
 		<h2 align="center">${pageTitle}</h2>
 		<h3>${message}</h3>
 		<table>
-			<tr>
+			<tr hidden>
 				<td>EmployeeId</td>
 				<td><form:input id="empId" path="empId"
-						value="${employee.empId}" /></td>
+						value="${employee.empId}" readonly="readonly"/></td>
 				<td><form:errors path="empId" cssClass="error" /></td>
 			</tr>
 			<tr>
