@@ -43,7 +43,7 @@ public class EmployeeController {
 		return "employeeHome";
 		
 	}
-	
+//	EmpList
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public ModelAndView getHome() {
 		ModelAndView mv = new ModelAndView();
