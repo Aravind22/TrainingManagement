@@ -15,7 +15,7 @@
 	
 	<div class="container">
 	<h1 align="center">Welcome to Training management</h1>
-	<h4 align="right"><a href="<c:url value="/addEmployee" />">Add Employee</a> </h4>
+	<h4 align="right"><a href="<c:url value="/employee/add" />">Add Employee</a> </h4>
 	<table class="table table-bordered table-striped table-hover">
 		<tr>
 		<th>Id</th>

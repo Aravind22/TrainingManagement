@@ -9,18 +9,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.assessment.apiGateway.dto.EmployeeDto;
 import com.assessment.apiGateway.entity.Employee;
 import com.assessment.apiGateway.service.impl.EmployeeService;
 
 @Controller
+@RequestMapping(path = "/employee")
 public class EmployeeController {
 	
 	@Autowired
 	EmployeeService empService;
 	
-	@RequestMapping(path = "/addEmployee", method = RequestMethod.GET)
+	@RequestMapping(path = "/add", method = RequestMethod.GET)
 	public ModelAndView ShowAddEmployee() {
 		EmployeeDto empDto = new EmployeeDto();
 		ModelAndView mv = new ModelAndView();
@@ -30,16 +32,16 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(path = "/addEmployee", method=RequestMethod.POST )
-	public ModelAndView addEmployee(@ModelAttribute(value = "employee") 
-	@Validated EmployeeDto employeeDto,BindingResult rslt) {
+	public String addEmployee(@ModelAttribute(value = "employee") 
+	@Validated EmployeeDto employeeDto,BindingResult rslt, RedirectAttributes redirectAttributes) {
 		EmployeeDto empDto = new EmployeeDto();
 		empDto = empService.addEmployee(employeeDto);
+		String sucessMessage = empDto.getEmpName() + " added Successfully!";
+//		ModelAndView modelAndView = new ModelAndView();
+//		modelAndView.setViewName("employeeHome");
+		redirectAttributes.addAttribute("employeeAdded", sucessMessage);
+		return "employeeHome";
 		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("employeeHome");
-		
-		if(empDto != null) return modelAndView;
-		return null;
 	}
 	
 	@RequestMapping(path = "/", method = RequestMethod.GET)
