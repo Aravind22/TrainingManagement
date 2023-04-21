@@ -12,6 +12,7 @@
 </head>
 <body>
 	<div class="container">
+	<h2 align="center">Add a new Skill</h2>
 		<mvc:form cssClass="form-horizontal" modelAttribute="skill" action="createSkill" method="post">
 			<table class="table table-striped">
 				<tr>
@@ -29,8 +30,8 @@
 				<tr>
 				<td></td>
 					<td>
-	        			<button type="submit" class="btn btn-default">Submit</button>
-	        			<button type="reset" class="btn btn-default">Clear</button>
+	        			<button type="submit" style="align-items: center;">Submit</button>
+	        			<button type="reset">Clear</button>
 	    			</td>
     			<td></td>  
 			</tr>

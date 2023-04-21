@@ -21,7 +21,8 @@ public class Training {
 	private long trainingID;
 	
 	@ManyToOne
-	private Skill skillsSet;
+	@JoinColumn(name = "trainingSet")
+	private Skill skill;
 	
 	@OneToMany
 	private List<Allocation> allocationList;
@@ -39,11 +40,11 @@ public class Training {
 	public void setTrainingID(long trainingID) {
 		this.trainingID = trainingID;
 	}
-	public Skill getSkillsSet() {
-		return skillsSet;
+	public Skill getskill() {
+		return skill;
 	}
-	public void setSkillsSet(Skill skillsSet) {
-		this.skillsSet = skillsSet;
+	public void setskill(Skill skill) {
+		this.skill = skill;
 	}
 	public List<Allocation> getAllocationList() {
 		return allocationList;
@@ -81,10 +82,10 @@ public class Training {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	public Training(Skill skillsSet, List<Allocation> allocationList, String startDate, String endDate, int score,
+	public Training(Skill skill, List<Allocation> allocationList, String startDate, String endDate, int score,
 			boolean status, String remarks) {
 		super();
-		this.skillsSet = skillsSet;
+		this.skill = skill;
 		this.allocationList = allocationList;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -97,7 +98,7 @@ public class Training {
 	}
 	@Override
 	public String toString() {
-		return "Training [trainingID=" + trainingID + ", skillsSet=" + skillsSet + ", allocationList=" + allocationList
+		return "Training [trainingID=" + trainingID + ", skill=" + skill + ", allocationList=" + allocationList
 				+ ", startDate=" + startDate + ", endDate=" + endDate + ", score=" + score + ", status=" + status
 				+ ", remarks=" + remarks + "]";
 	}

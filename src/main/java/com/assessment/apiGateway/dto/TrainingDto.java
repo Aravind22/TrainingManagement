@@ -11,7 +11,7 @@ import com.assessment.apiGateway.entity.Skill;
 @Component
 public class TrainingDto {
 
-	private long trainingId;
+	private long trainingID;
 	
 	@NotNull(message = "StartDate can't be null")
 	private String startDate;
@@ -24,14 +24,40 @@ public class TrainingDto {
 	
 	private String skill;
 	
-	private List<Allocation> allocationList;
-
-	public long getTrainingId() {
-		return trainingId;
+	
+	
+	public String getSkill() {
+		return skill;
 	}
 
-	public void setTrainingId(long trainingId) {
-		this.trainingId = trainingId;
+	public void setSkill(String skill) {
+		this.skill = skill;
+	}
+
+	public long getTrainingID() {
+		return trainingID;
+	}
+
+	public void setTrainingID(long trainingID) {
+		this.trainingID = trainingID;
+	}
+
+	public String getSkillList() {
+		return skill;
+	}
+
+	public void setSkillList(String skillList) {
+		this.skill = skillList;
+	}
+
+	private List<Allocation> allocationList;
+
+	public long gettrainingID() {
+		return trainingID;
+	}
+
+	public void settrainingID(long trainingID) {
+		this.trainingID = trainingID;
 	}
 
 	public String getStartDate() {
@@ -58,13 +84,13 @@ public class TrainingDto {
 		this.status = status;
 	}
 
-	public String getSkill() {
-		return skill;
-	}
-
-	public void setSkill(String skill) {
-		this.skill = skill;
-	}
+//	public String getSkill() {
+//		return skill;
+//	}
+//
+//	public void setSkill(String skill) {
+//		this.skill = skill;
+//	}
 
 	public List<Allocation> getAllocationList() {
 		return allocationList;
@@ -74,14 +100,14 @@ public class TrainingDto {
 		this.allocationList = allocationList;
 	}
 
-	public TrainingDto(long trainingId, String startDate, String endDate,
+	public TrainingDto(long trainingID, String startDate, String endDate,
 			boolean status, String skill, List<Allocation> allocationList) {
 		super();
-		this.trainingId = trainingId;
+		this.trainingID = trainingID;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.status = status;
-		this.skill = skill;
+//		this.skill = skill;
 		this.allocationList = allocationList;
 	}
 
@@ -91,9 +117,10 @@ public class TrainingDto {
 
 	@Override
 	public String toString() {
-		return "TrainingDto [trainingId=" + trainingId + ", startDate=" + startDate + ", endDate=" + endDate
+		return "TrainingDto [trainingID=" + trainingID + ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", status=" + status + ", skill=" + skill + ", allocationList=" + allocationList + "]";
 	}
+
 
 
 	

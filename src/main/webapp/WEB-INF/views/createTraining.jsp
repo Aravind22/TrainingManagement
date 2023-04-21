@@ -12,12 +12,12 @@
 </head>
 <body>
 	<div class="container">
-		<mvc:form cssClass="form-horizontal" modelAttribute="training" action="createTraining" method="post">
+		<mvc:form cssClass="form-horizontal" modelAttribute="training" action="add" method="post">
 			<table class="table table-striped">
 				<tr>
 					<td>
 						<td>Skill</td>
-						<td><mvc:input path="skillsSet" /></td>
+						<td><mvc:input path="skill" /></td>
 					</td>
 				</tr>
 				<tr>
@@ -36,6 +36,12 @@
 					<td>
 						<td>Status</td>
 						<td><mvc:input path="status" /></td>
+					</td>
+				</tr>
+				<tr hidden>
+					<td>
+						<td>Id</td>
+						<td><mvc:input type="hidden" path="trainingID" /></td>
 					</td>
 				</tr>
 				<tr>
