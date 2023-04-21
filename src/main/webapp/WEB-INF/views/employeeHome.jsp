@@ -16,6 +16,7 @@
 	<div class="container">
 	<h1 align="center">Welcome to Training management</h1>
 	<h4 align="right"><a href="<c:url value="/employee/add" />">Add Employee</a> </h4>
+	<h2>${employeeAdded}</h2>
 	<table class="table table-bordered table-striped table-hover">
 		<tr>
 		<th>Id</th>
@@ -27,7 +28,7 @@
 		<c:forEach var="employee" items="${employeeList}">
 			<tr><td>${employee.empId}</td> 
 			<td>${employee.empName}</td>
-			<td><a class="nav-link active" href="/employee?empId=${employee.empId}">Edit</a></td>
+			<td><a class="nav-link active" href="/employee/edit?empId=${employee.empId}">Edit</a></td>
 			<td><a class="nav-link active" href="/employee/delete/${employee.empId}">Delete</a></td>
 			<td><a class="nav-link active" href="/employee/train/${employee.empId}">Train</a></td>
 			</tr>

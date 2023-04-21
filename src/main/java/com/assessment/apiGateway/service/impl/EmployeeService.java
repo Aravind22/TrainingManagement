@@ -1,6 +1,7 @@
 package com.assessment.apiGateway.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,12 @@ public class EmployeeService {
 	
 	public List<Employee> getAllEmployees() {
 		return empDao.findAll();
+	}
+	
+	public EmployeeDto getEmployeeById(long id) {
+		Optional<Employee> result = empDao.findById(id);
+		Employee emp = result.get();
+		return empConverter.convertToDto(emp);
 	}
 	
 }

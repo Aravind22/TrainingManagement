@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,13 +38,31 @@ public class EmployeeController {
 		EmployeeDto empDto = new EmployeeDto();
 		empDto = empService.addEmployee(employeeDto);
 		String sucessMessage = empDto.getEmpName() + " added Successfully!";
+//		if(employeeDto.getEmpId())
 //		ModelAndView modelAndView = new ModelAndView();
 //		modelAndView.setViewName("employeeHome");
 		redirectAttributes.addAttribute("employeeAdded", sucessMessage);
-		return "employeeHome";
+		return "redirect:list";
 		
 	}
 //	EmpList
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView getAllEmployee() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("employeeHome");
+		mv.addObject("employeeList",empService.getAllEmployees());
+		return mv;
+	}
+	
+//	Edit Employee
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView getEmployeeById(@RequestParam long empId) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("addEmployee");
+		modelAndView.addObject("employee", empService.getEmployeeById(empId));
+		return modelAndView;
+	}
+	
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public ModelAndView getHome() {
 		ModelAndView mv = new ModelAndView();
