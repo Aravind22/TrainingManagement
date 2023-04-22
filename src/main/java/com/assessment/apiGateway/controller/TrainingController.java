@@ -1,5 +1,10 @@
 package com.assessment.apiGateway.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +23,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.assessment.apiGateway.dao.TrainingDao;
 import com.assessment.apiGateway.dto.EmployeeDto;
+import com.assessment.apiGateway.dto.SkillOptionDto;
 import com.assessment.apiGateway.dto.TrainingDto;
+import com.assessment.apiGateway.entity.Skill;
 import com.assessment.apiGateway.entity.Training;
+import com.assessment.apiGateway.service.impl.SkillService;
 import com.assessment.apiGateway.service.impl.TrainingService;
 
 @Controller
@@ -28,6 +36,9 @@ public class TrainingController {
 	
 	@Autowired
 	TrainingService trainingService;
+	
+	@Autowired
+	SkillService skillService;
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String createTraining(@ModelAttribute(value = "training") 
@@ -50,6 +61,14 @@ public class TrainingController {
 	public String showCreateTraining(@ModelAttribute(name="training") 
 	@Valid Training training, BindingResult result, 
 	RedirectAttributes redirectAttrs, Model model) {
+		List<Skill> skillList = skillService.getAllSkills();
+		List<SkillOptionDto> options = new ArrayList<SkillOptionDto>();
+//		Map< String, String > options = new HashMap();
+		skillList.forEach(skill->{
+//			options.put(skill.getSkillName(), skill.getSkillName());
+			options.add(new SkillOptionDto(skill.getSkillId(), skill.getSkillName()));
+		});
+		model.addAttribute("skillOptions", options);
 		return "createTraining";
 	}
 	
