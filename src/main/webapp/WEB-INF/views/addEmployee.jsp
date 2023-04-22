@@ -25,7 +25,13 @@
 			<tr>
 				<td>EmployeeId</td>
 				<td><form:input id="empId" path="empId"
-						value="${employee.empId}" /></td>
+						value="${employee.empId}" disabled="${employee.empId ne 0}" /></td>
+				<td><form:errors path="empId" cssClass="error" /></td>
+			</tr>
+			<tr hidden>
+				<td>EmployeeId</td>
+				<td><form:input id="empId" path="empId"
+						value="${employee.empId}" disabled="${employee.empId eq 0}" /></td>
 				<td><form:errors path="empId" cssClass="error" /></td>
 			</tr>
 			<tr>

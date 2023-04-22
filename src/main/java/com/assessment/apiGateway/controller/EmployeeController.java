@@ -1,5 +1,6 @@
 package com.assessment.apiGateway.controller;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,8 @@ import com.assessment.apiGateway.service.impl.EmployeeService;
 @Controller
 @RequestMapping(path = "/employee")
 public class EmployeeController {
+	
+	Logger logger = Logger.getLogger(EmployeeController.class.getName());
 	
 	@Autowired
 	EmployeeService empService;
@@ -46,8 +49,13 @@ public class EmployeeController {
 			empDto = empService.addEmployee(employeeDto);
 		}
 		else {
-			empDto = empService.addEmployee(employeeDto);
-			sucessMessage = empDto.getEmpName() + " created Successfully!";
+			EmployeeDto data = empService.getEmployeeById(employeeDto.getEmpId());
+			if(data!=null) {
+				sucessMessage = "Employee Id " + data.getEmpId() + " already available, Not created or updated";
+			}else {
+				empDto = empService.addEmployee(employeeDto);
+				sucessMessage = empDto.getEmpName() + " created Successfully!";
+			}
 		}
 		
 		redirectAttributes.addFlashAttribute("employeeAdded", sucessMessage);
@@ -68,7 +76,7 @@ public class EmployeeController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView getEmployeeById(@RequestParam long empId) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("updateEmployee");
+		modelAndView.setViewName("addEmployee");
 		EmployeeDto data = empService.getEmployeeById(empId);
 		data.setDisabled("disabled");
 		modelAndView.addObject("employee", data);
@@ -85,7 +93,6 @@ public class EmployeeController {
 	public ModelAndView getHome() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("employeeList");
-		System.out.println(empService.getAllEmployees());
 		mv.addObject("employeeList",empService.getAllEmployees());
 		return mv;
 	}
