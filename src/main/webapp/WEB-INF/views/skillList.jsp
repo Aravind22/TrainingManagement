@@ -12,7 +12,7 @@
 	<title>Training management</title>
  </head>
 <body>
-	
+	<jsp:include page="header.jsp" />
 	<div class="container">
 	<h1 align="center">Welcome to Training management</h1>
 	<h4 align="right"><a href="<c:url value="/skill/add" />">Add Skill</a> </h4>

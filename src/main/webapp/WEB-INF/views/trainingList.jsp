@@ -13,13 +13,14 @@
  </head>
 <body>
 	
+	<jsp:include page="header.jsp" />
 	<div class="container">
 	<h1 align="center">Welcome to Training management</h1>
 	<h4 align="right"><a href="<c:url value="/training/add" />">Create Training</a> </h4>
 	<table class="table table-bordered table-striped table-hover">
 		<tr>
 		<th>Id</th>
-		<th>TrainerId</th>
+		<th>TrainerId - Name</th>
 		<th>Skill</th>
 		<th>Start Date</th>
 		<th>End Date</th>
@@ -29,7 +30,7 @@
 		</tr>
 		<c:forEach var="training" items="${trainingList}">
 			<tr><td>${training.trainingID}</td>
-			<td>${training.employee}</td> 
+			<td>${training.employee.empId} - ${training.employee.empName}</td> 
 			<td>${training.skill.skillName}</td>
 			<td>${training.startDate}</td>
 			<td>${training.endDate}</td>

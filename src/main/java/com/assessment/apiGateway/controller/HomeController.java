@@ -18,7 +18,6 @@ public class HomeController {
 	public ModelAndView homePage() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("employeeList");
-		System.out.println(empService.getAllEmployees());
 		mv.addObject("employeeList",empService.getAllEmployees());
 		return mv;
 	}

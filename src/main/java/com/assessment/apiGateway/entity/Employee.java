@@ -2,7 +2,9 @@ package com.assessment.apiGateway.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -19,8 +21,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Getter
-@Setter
 public class Employee {
 	
 	@Id
@@ -30,9 +30,79 @@ public class Employee {
 	@ManyToMany
 	private Set<Skill> skillList;
 	
-	@OneToMany(mappedBy = "employee")
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
 	private Set<Allocation> allocationList;
 	
-	@OneToMany(mappedBy = "employee")
+	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
 	private Set<Training> trainings;
+
+	
+	
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", empName=" + empName + ", skillList=" + skillList + ", allocationList="
+				+ allocationList + ", trainings=" + trainings + "]";
+	}
+
+
+
+	public long getEmpId() {
+		return empId;
+	}
+
+
+
+	public void setEmpId(long empId) {
+		this.empId = empId;
+	}
+
+
+
+	public String getEmpName() {
+		return empName;
+	}
+
+
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+
+
+	public Set<Skill> getSkillList() {
+		return skillList;
+	}
+
+
+
+	public void setSkillList(Set<Skill> skillList) {
+		this.skillList = skillList;
+	}
+
+
+
+	public Set<Allocation> getAllocationList() {
+		return allocationList;
+	}
+
+
+
+	public void setAllocationList(Set<Allocation> allocationList) {
+		this.allocationList = allocationList;
+	}
+
+
+
+	public Set<Training> getTrainings() {
+		return trainings;
+	}
+
+
+
+	public void setTrainings(Set<Training> trainings) {
+		this.trainings = trainings;
+	}
+	
+	
 }

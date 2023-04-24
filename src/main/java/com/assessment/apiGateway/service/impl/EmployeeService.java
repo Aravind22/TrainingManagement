@@ -36,6 +36,8 @@ public class EmployeeService {
 	}
 	
 	public List<Employee> getAllEmployees() {
+		logger.info(" EMP LIST ==================================== EMP LIST");
+//		logger.info(empDao.findAll().get(0).toString()+"sssssss");
 		return empDao.findAll();
 	}
 	

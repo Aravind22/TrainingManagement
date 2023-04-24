@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class Training {
 	private boolean status;
 	private String remarks;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinTable(name = "TrainingEmployeeRelation",
 	joinColumns = @JoinColumn(referencedColumnName = "trainingID"),
 	inverseJoinColumns = @JoinColumn(referencedColumnName = "empId"))

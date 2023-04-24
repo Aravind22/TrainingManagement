@@ -11,6 +11,7 @@
 	<title>Training management</title>
  </head>
 <body>
+<jsp:include page="header.jsp" />
 	<div class="container">
 	<h1 align="center">Welcome to Training management</h1>
 	<h4 align="right"><a href="<c:url value="/employee/add" />">Add Employee</a> </h4>
@@ -22,10 +23,11 @@
 		<th>Skills</th>
 		<th>Edit</th>
 		<th>Delete</th>
-		<th>Actions</th>
+		<!-- <th>Actions</th>  -->
 		</tr>
+		${employee.skillList} <br/>
 		<c:forEach var="employee" items="${employeeList}">
-			<tr><td>${employee.empId}</td> 
+			<tr><td>${employee.empId}</td>
 			<td>${employee.empName}</td>
 			<td>
 				<c:forEach var="skillList" items="${employee.skillList}">
@@ -34,7 +36,7 @@
 			</td>
 			<td><a class="nav-link active" href="/employee/edit?empId=${employee.empId}">Edit</a></td>
 			<td><a class="nav-link active" href="/employee/delete/${employee.empId}">Delete</a></td>
-			<td><a class="nav-link active" href="/employee/train/${employee.empId}">Train</a></td>
+<!-- 		<td><a class="nav-link active" href="/employee/train/${employee.empId}">Train</a></td>  -->
 			</tr>
 		</c:forEach>
 	</table>

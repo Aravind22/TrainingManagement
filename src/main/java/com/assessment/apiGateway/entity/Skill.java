@@ -2,6 +2,7 @@ package com.assessment.apiGateway.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Skill {
 	@ManyToMany
 	Set<Employee> employeeList;
 	
-	@OneToMany(mappedBy = "skill")
+	@OneToMany(mappedBy = "skill", cascade = CascadeType.ALL) // casecade purpose is if we deleted relavent mapped data also will delete
 	private Set<Training> trainings;
 
 	public long getSkillId() {

@@ -60,7 +60,15 @@ public class TrainingService {
 			return null;
 		}
 		Training training = trainingConverter.convertToEntity(trainingDto);
+		EmployeeDto empDto = empService.getEmployeeById(trainingDto.getEmpId());
+		Employee emp = employeeConverter.convertToEntity(empDto);
+		training.setEmployee(emp);
 		training.setskill(skillObj);
+//		training.se
+		logger.info(training.toString());
+		logger.info(training.getSkill().toString());
+		logger.info("============TRAINING BEFORE SAVE DATA============");
+		logger.info(training.getskill().toString());
 		if(trainingDao.save(training) != null) {
 			trainingDto.setTrainingID(training.getTrainingID());
 			EmployeeDto empData = empService.getEmployeeById(trainingDto.getEmpId());
