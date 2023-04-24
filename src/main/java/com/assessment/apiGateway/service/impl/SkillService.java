@@ -43,4 +43,8 @@ public class SkillService {
 	public void deleteSkillById(long id) {
 		skillDao.deleteById(id);
 	}
+	
+	public Skill findBySkillName(String skillName) {
+		return skillDao.findBySkillName(skillName);
+	}
 }

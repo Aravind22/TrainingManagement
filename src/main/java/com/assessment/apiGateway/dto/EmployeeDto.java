@@ -1,8 +1,12 @@
 package com.assessment.apiGateway.dto;
 
+import java.util.Set;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
+
+import com.assessment.apiGateway.entity.Skill;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,5 +29,7 @@ public class EmployeeDto {
 	private String empName;
 	
 	private String disabled;
+	
+	private Set<Skill> skillSet;
 
 }

@@ -19,6 +19,7 @@
 		<tr>
 		<th>Id</th>
 		<th>Name</th>
+		<th>Skills</th>
 		<th>Edit</th>
 		<th>Delete</th>
 		<th>Actions</th>
@@ -26,6 +27,11 @@
 		<c:forEach var="employee" items="${employeeList}">
 			<tr><td>${employee.empId}</td> 
 			<td>${employee.empName}</td>
+			<td>
+				<c:forEach var="skillList" items="${employee.skillList}">
+					${skillList.skillName} <br/>
+				</c:forEach>
+			</td>
 			<td><a class="nav-link active" href="/employee/edit?empId=${employee.empId}">Edit</a></td>
 			<td><a class="nav-link active" href="/employee/delete/${employee.empId}">Delete</a></td>
 			<td><a class="nav-link active" href="/employee/train/${employee.empId}">Train</a></td>

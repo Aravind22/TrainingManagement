@@ -25,6 +25,7 @@ public class EmployeeService {
 		logger.info(emDto);
 		logger.info("####################################");
 		Employee emp = empConverter.convertToEntity(emDto);
+		emp.setSkillList(emDto.getSkillSet());
 		logger.info(emp);
 		logger.info("====================================");
 		if(empDao.save(emp) != null) {
@@ -42,7 +43,9 @@ public class EmployeeService {
 		Optional<Employee> result = empDao.findById(id);
 		if(result.isPresent()) {
 			Employee emp = result.get();
-			return empConverter.convertToDto(emp);	
+			EmployeeDto emDTO = empConverter.convertToDto(emp);	
+			emDTO.setSkillSet(emp.getSkillList());
+			return emDTO;
 		}
 		return null;
 	}

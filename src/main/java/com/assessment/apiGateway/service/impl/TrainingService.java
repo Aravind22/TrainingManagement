@@ -88,4 +88,8 @@ public class TrainingService {
 	public void deleteTrainingById(long id) {
 		trainingDao.deleteById(id);
 	}
+	
+	public Training findBySkill(Skill skill) {
+		return trainingDao.findBySkill(skill);
+	}
 }
