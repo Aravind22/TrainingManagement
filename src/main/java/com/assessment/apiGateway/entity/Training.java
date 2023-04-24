@@ -8,34 +8,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@Getter
-@Setter
 public class Training {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long trainingID;
 	
-	@ManyToOne
-	@JoinColumn(name = "skillId")
+	@ManyToOne()
+	@JoinTable(name = "TrainingSkillRelation", 
+	joinColumns = @JoinColumn(referencedColumnName = "trainingID"),
+	inverseJoinColumns = @JoinColumn(referencedColumnName = "skillId")
+	)
 	private Skill skill;
-	
-	private long empId;
 	
 	@OneToMany
 	private List<Allocation> allocationList;
@@ -47,11 +38,58 @@ public class Training {
 	private boolean status;
 	private String remarks;
 	
-	public Training(Skill skill, long empId, List<Allocation> allocationList, String startDate, String endDate,
-			int score, boolean status, String remarks) {
+	public long getTrainingID() {
+		return trainingID;
+	}
+	public void setTrainingID(long trainingID) {
+		this.trainingID = trainingID;
+	}
+	public Skill getskill() {
+		return skill;
+	}
+	public void setskill(Skill skill) {
+		this.skill = skill;
+	}
+	public List<Allocation> getAllocationList() {
+		return allocationList;
+	}
+	public void setAllocationList(List<Allocation> allocationList) {
+		this.allocationList = allocationList;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	public Training(Skill skill, List<Allocation> allocationList, String startDate, String endDate, int score,
+			boolean status, String remarks) {
 		super();
 		this.skill = skill;
-		this.empId = empId;
 		this.allocationList = allocationList;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -59,28 +97,15 @@ public class Training {
 		this.status = status;
 		this.remarks = remarks;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (trainingID ^ (trainingID >>> 32));
-		return result;
+	public Training() {
+		super();
 	}
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Training other = (Training) obj;
-		if (trainingID != other.trainingID)
-			return false;
-		return true;
+	public String toString() {
+		return "Training [trainingID=" + trainingID + ", skill=" + skill + ", allocationList=" + allocationList
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", score=" + score + ", status=" + status
+				+ ", remarks=" + remarks + "]";
 	}
-
-	
 	
 	
 	

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.assessment.apiGateway.converter.AllocationConverter;
 import com.assessment.apiGateway.converter.EmployeeConverter;
+import com.assessment.apiGateway.converter.SkillConverter;
 import com.assessment.apiGateway.converter.TrainingConverter;
 import com.assessment.apiGateway.dao.AllocationDao;
 import com.assessment.apiGateway.dao.EmployeeDao;
@@ -46,6 +48,11 @@ public class AllocationService {
 	@Autowired
 	SkillService skillService;
 	
+	@Autowired
+	SkillConverter skillConverter;
+	
+	Logger logger = Logger.getLogger(AllocationService.class.getSimpleName());
+	
 	public AllocationDto addAllocation(AllocationDto allocationDto) {
 		Allocation allocation = new Allocation();
 		BeanUtils.copyProperties(allocationDto, allocation);
@@ -53,7 +60,7 @@ public class AllocationService {
 		Skill skillObj = skillService.findBySkillName(allocationDto.getSkillName());
 		Training trainObj = trainingService.findBySkill(skillObj);
 		allocation.setEmployee(empConverter.convertToEntity(empObj));
-		allocation.setTraining(trainObj);
+		allocation.settraining(trainObj);
 		if(allocatiDao.save(allocation) != null) {
 			allocationDto.setAllocationId(allocation.getAllocationId());
 			return allocationDto;
@@ -79,7 +86,7 @@ public class AllocationService {
 			allocationDto.setScore(allocation.get().getScore());
 			allocationDto.setRemarks(allocation.get().getRemarks());
 			allocationDto.setEmpId(allocation.get().getEmployee().getEmpId());
-			allocationDto.setSkillName(allocation.get().getTraining().getSkill().getSkillName());
+			allocationDto.setSkillName(allocation.get().gettraining().getskill().getSkillName());
 			return allocationDto;
 		}
 		return null;
@@ -91,8 +98,9 @@ public class AllocationService {
 		BeanUtils.copyProperties(empDto, empObj);
 		
 		SkillDto skillDto = skillService.getSkillById(skillId);
-		Skill skillObj = new Skill();
-		BeanUtils.copyProperties(skillDto, skillObj);
+		Skill skillObj = skillConverter.convertToEntity(skillDto);
+		logger.info("SKILLOBJ::=>"+skillObj);
+		
 		
 		Set<Skill> skillSet = empDto.getSkillSet();
 		if (skillSet == null) {
@@ -101,9 +109,10 @@ public class AllocationService {
 		skillSet.add(skillObj);
 		empObj.setSkillList(skillSet);
 		
-		EmployeeDto employeeDto = new EmployeeDto();
-		BeanUtils.copyProperties(empObj, employeeDto);
+		EmployeeDto employeeDto = empConverter.convertToDto(empObj);
+		employeeDto.setSkillSet(empObj.getSkillList());
 		
+		logger.info("EMPLOYEEDTO::=>"+employeeDto);
 		empService.addEmployee(employeeDto);
 		
 		Optional<Allocation> allocationObj = allocatiDao.findById(allocationId);

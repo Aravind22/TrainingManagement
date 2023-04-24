@@ -60,7 +60,7 @@ public class TrainingService {
 			return null;
 		}
 		Training training = trainingConverter.convertToEntity(trainingDto);
-		training.setSkill(skillObj);
+		training.setskill(skillObj);
 		if(trainingDao.save(training) != null) {
 			trainingDto.setTrainingID(training.getTrainingID());
 			EmployeeDto empData = empService.getEmployeeById(trainingDto.getEmpId());
@@ -96,7 +96,7 @@ public class TrainingService {
 		Training trainingObj = training.get();
 		TrainingDto trainDTO = new TrainingDto();
 		BeanUtils.copyProperties(trainingObj, trainDTO);
-		trainDTO.setSkill(trainingObj.getSkill().getSkillName());
+		trainDTO.setSkill(trainingObj.getskill().getSkillName());
 		return trainDTO;
 	}
 	
