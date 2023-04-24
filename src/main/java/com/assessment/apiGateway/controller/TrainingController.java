@@ -52,6 +52,7 @@ public class TrainingController {
 			System.out.println(rslt.getAllErrors());
 		}
 		TrainingDto trainDto = new TrainingDto();
+		System.out.println("OCMMIN"+trainingDto);
 		long empId = trainingDto.getEmpId();
 		EmployeeDto empData = employeeService.getEmployeeById(empId);
 		System.out.println(empData);
@@ -72,7 +73,7 @@ public class TrainingController {
 	
 	@GetMapping(value = "/add")
 	public String showCreateTraining(@ModelAttribute(name="training") 
-	@Valid Training training, BindingResult result, 
+	@Valid TrainingDto training, BindingResult result, 
 	RedirectAttributes redirectAttrs, Model model) {
 		List<Skill> skillList = skillService.getAllSkills();
 		List<SkillOptionDto> options = new ArrayList<SkillOptionDto>();
