@@ -19,6 +19,7 @@
 	<table class="table table-bordered table-striped table-hover">
 		<tr>
 		<th>Id</th>
+		<th>TrainerId</th>
 		<th>Skill</th>
 		<th>Start Date</th>
 		<th>End Date</th>
@@ -27,7 +28,8 @@
 		<th>Delete</th>
 		</tr>
 		<c:forEach var="training" items="${trainingList}">
-			<tr><td>${training.trainingID}</td> 
+			<tr><td>${training.trainingID}</td>
+			<td>${training.empId}</td> 
 			<td>${training.skill.skillName}</td>
 			<td>${training.startDate}</td>
 			<td>${training.endDate}</td>

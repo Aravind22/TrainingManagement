@@ -27,6 +27,7 @@ import com.assessment.apiGateway.dto.SkillOptionDto;
 import com.assessment.apiGateway.dto.TrainingDto;
 import com.assessment.apiGateway.entity.Skill;
 import com.assessment.apiGateway.entity.Training;
+import com.assessment.apiGateway.service.impl.EmployeeService;
 import com.assessment.apiGateway.service.impl.SkillService;
 import com.assessment.apiGateway.service.impl.TrainingService;
 
@@ -40,6 +41,9 @@ public class TrainingController {
 	@Autowired
 	SkillService skillService;
 	
+	@Autowired
+	EmployeeService employeeService;
+	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String createTraining(@ModelAttribute(value = "training") 
 	@Validated TrainingDto trainingDto,BindingResult rslt, 
@@ -48,8 +52,17 @@ public class TrainingController {
 			System.out.println(rslt.getAllErrors());
 		}
 		TrainingDto trainDto = new TrainingDto();
-		trainDto = trainingService.createTraining(trainingDto);
-		if(trainDto != null) {
+		long empId = trainingDto.getEmpId();
+		EmployeeDto empData = employeeService.getEmployeeById(empId);
+		System.out.println(empData);
+		System.out.println("EMP DATA ====================== EMP DATA ");
+		if(empData!= null) {
+			trainDto = trainingService.createTraining(trainingDto);
+			redirectAttrs.addFlashAttribute("msg", "Trainer Employee Not available");
+		}
+		System.out.println(trainDto);
+		System.out.println("TRAIN DATA ====================== TRAIN DATA ");
+		if(trainDto != null && trainDto.getTrainingID()!=0) {
 			redirectAttrs.addFlashAttribute("msg", "Training Added Successfully");
 			return "redirect:/training/addTrainingSuccess";
 		} else {
@@ -63,9 +76,7 @@ public class TrainingController {
 	RedirectAttributes redirectAttrs, Model model) {
 		List<Skill> skillList = skillService.getAllSkills();
 		List<SkillOptionDto> options = new ArrayList<SkillOptionDto>();
-//		Map< String, String > options = new HashMap();
 		skillList.forEach(skill->{
-//			options.put(skill.getSkillName(), skill.getSkillName());
 			options.add(new SkillOptionDto(skill.getSkillId(), skill.getSkillName()));
 		});
 		model.addAttribute("skillOptions", options);
@@ -84,18 +95,26 @@ public class TrainingController {
 	
 	@GetMapping(value = "/")
 	public ModelAndView listAllTrainings() {
+		System.out.println("=================================");
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("trainingList");
-		mv.addObject("trainingList",trainingService.listAllTraining());
+		List<Training> trainingList = trainingService.listAllTraining();
+		mv.addObject("trainingList",trainingList);
 		return mv;
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView getTrainingById(@RequestParam long trainingId) {
+	public ModelAndView getTrainingById(@RequestParam long trainingId,Model model) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("createTraining");
 		TrainingDto trainDTO = trainingService.getTrainingById(trainingId);
 		modelAndView.addObject("training", trainDTO);
+		List<Skill> skillList = skillService.getAllSkills();
+		List<SkillOptionDto> options = new ArrayList<SkillOptionDto>();
+		skillList.forEach(skill->{
+			options.add(new SkillOptionDto(skill.getSkillId(), skill.getSkillName()));
+		});
+		model.addAttribute("skillOptions", options);
 		return modelAndView;
 	}
 	
