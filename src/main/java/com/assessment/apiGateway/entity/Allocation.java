@@ -9,7 +9,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Allocation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,42 +34,9 @@ public class Allocation {
 	private int score;
 	private String status;
 	private String remarks;
-	public long getAllocationId() {
-		return allocationId;
-	}
-	public void setAllocationId(long allocationId) {
-		this.allocationId = allocationId;
-	}
-	public Training gettraining() {
-		return training;
-	}
-	public void settraining(Training training) {
-		this.training = training;
-	}
-	public Employee getEmployee() {
-		return employee;
-	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-	public int getScore() {
-		return score;
-	}
-	public void setScore(int score) {
-		this.score = score;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public String getRemarks() {
-		return remarks;
-	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
+
+	
+	
 	public Allocation(Training training, Employee employee, int score, String status, String remarks) {
 		super();
 		this.training = training;
@@ -67,14 +45,33 @@ public class Allocation {
 		this.status = status;
 		this.remarks = remarks;
 	}
-	public Allocation() {
-		super();
-	}
+
+
+
 	@Override
-	public String toString() {
-		return "Allocation [allocationId=" + allocationId + ", training=" + training + ", employee=" + employee
-				+ ", score=" + score + ", status=" + status + ", remarks=" + remarks + "]";
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (allocationId ^ (allocationId >>> 32));
+		return result;
 	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Allocation other = (Allocation) obj;
+		if (allocationId != other.allocationId)
+			return false;
+		return true;
+	}
+	
 	
 	
 

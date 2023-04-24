@@ -32,7 +32,7 @@ public class Training {
 	private long trainingID;
 	
 	@ManyToOne
-	@JoinColumn(name = "trainingSet")
+	@JoinColumn(name = "skillId")
 	private Skill skill;
 	
 	private long empId;
@@ -46,5 +46,42 @@ public class Training {
 	private int score;
 	private boolean status;
 	private String remarks;
+	
+	public Training(Skill skill, long empId, List<Allocation> allocationList, String startDate, String endDate,
+			int score, boolean status, String remarks) {
+		super();
+		this.skill = skill;
+		this.empId = empId;
+		this.allocationList = allocationList;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.score = score;
+		this.status = status;
+		this.remarks = remarks;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (trainingID ^ (trainingID >>> 32));
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Training other = (Training) obj;
+		if (trainingID != other.trainingID)
+			return false;
+		return true;
+	}
+
+	
+	
+	
 	
 }

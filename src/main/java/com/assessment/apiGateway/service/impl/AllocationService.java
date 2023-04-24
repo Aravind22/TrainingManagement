@@ -53,7 +53,7 @@ public class AllocationService {
 		Skill skillObj = skillService.findBySkillName(allocationDto.getSkillName());
 		Training trainObj = trainingService.findBySkill(skillObj);
 		allocation.setEmployee(empConverter.convertToEntity(empObj));
-		allocation.settraining(trainObj);
+		allocation.setTraining(trainObj);
 		if(allocatiDao.save(allocation) != null) {
 			allocationDto.setAllocationId(allocation.getAllocationId());
 			return allocationDto;
@@ -79,7 +79,7 @@ public class AllocationService {
 			allocationDto.setScore(allocation.get().getScore());
 			allocationDto.setRemarks(allocation.get().getRemarks());
 			allocationDto.setEmpId(allocation.get().getEmployee().getEmpId());
-			allocationDto.setSkillName(allocation.get().gettraining().getskill().getSkillName());
+			allocationDto.setSkillName(allocation.get().getTraining().getSkill().getSkillName());
 			return allocationDto;
 		}
 		return null;

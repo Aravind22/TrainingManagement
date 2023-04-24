@@ -3,6 +3,9 @@ package com.assessment.apiGateway.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,20 +51,21 @@ public class TrainingService {
 	
 	@Autowired EmployeeService empService;
 	
+	Logger logger = Logger.getLogger(TrainingService.class.getCanonicalName());
+	
+	@Transactional
 	public TrainingDto createTraining(TrainingDto trainingDto) {
-		System.out.println("TrainingDTO"+trainingDto.toString());
 		Skill skillObj = skillDao.findBySkillName(trainingDto.getSkill());
 		if(skillObj == null) {
 			return null;
 		}
 		Training training = trainingConverter.convertToEntity(trainingDto);
 		training.setSkill(skillObj);
-//		training.se
-		System.out.println("TrainingSKILL"+skillObj.toString());
 		if(trainingDao.save(training) != null) {
 			trainingDto.setTrainingID(training.getTrainingID());
 			EmployeeDto empData = empService.getEmployeeById(trainingDto.getEmpId());
 			trainingDto.setTrainerName(empData.getEmpName());
+//			logger.info("TRAINING ENTITY==>"+ trainingDto.getSkill().toString());
 			return trainingDto;
 		}
 		return null;

@@ -8,7 +8,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Getter
+@Setter
 public class Employee {
 	
 	@Id
@@ -21,54 +32,33 @@ public class Employee {
 	@OneToMany
 	private Set<Allocation> allocationList;
 
-	public long getEmpId() {
-		return empId;
-	}
-
-	public void setEmpId(long empId) {
-		this.empId = empId;
-	}
-
-	public String getEmpName() {
-		return empName;
-	}
-
-	public void setEmpName(String empName) {
-		this.empName = empName;
-	}
-
-	public Set<Skill> getSkillList() {
-		return skillList;
-	}
-
-	public void setSkillList(Set<Skill> skillList) {
-		this.skillList = skillList;
-	}
-
-	public Set<Allocation> getAllocationList() {
-		return allocationList;
-	}
-
-	public void setAllocationList(Set<Allocation> allocationList) {
-		this.allocationList = allocationList;
-	}
-
-	public Employee(long empId, String empName, Set<Skill> skillList, Set<Allocation> allocationList) {
+	public Employee(String empName, Set<Skill> skillList, Set<Allocation> allocationList) {
 		super();
-		this.empId = empId;
 		this.empName = empName;
 		this.skillList = skillList;
 		this.allocationList = allocationList;
-	}
-
-	public Employee() {
-		super();
 	}
 
 	@Override
-	public String toString() {
-		return "Employee [empId=" + empId + ", empName=" + empName + ", skillList=" + skillList + ", allocationList="
-				+ allocationList + "]";
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (empId ^ (empId >>> 32));
+		return result;
 	}
-		
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		if (empId != other.empId)
+			return false;
+		return true;
+	}
+	
 }
