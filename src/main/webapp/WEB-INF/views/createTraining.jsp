@@ -12,6 +12,7 @@
 </head>
 <body>
 	<div class="container">
+	<h2 align="center">Add Training</h2>
 		<mvc:form cssClass="form-horizontal" modelAttribute="training"
 			action="add" method="post">
 			<table class="table table-striped">
@@ -28,6 +29,12 @@
 							</mvc:select>
 					</td>
 
+				</tr>
+				<tr>
+					<td>
+					<td>EmpLoyee Id</td>
+					<td><mvc:input path="empId" /></td>
+					</td>
 				</tr>
 				<tr>
 					<td>
