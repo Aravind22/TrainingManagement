@@ -24,6 +24,7 @@ public class Allocation {
 	joinColumns = @JoinColumn(referencedColumnName = "allocationId"),
 	inverseJoinColumns = @JoinColumn(referencedColumnName = "empId"))
 	private Employee employee;
+	
 	private int score;
 	private String status;
 	private String remarks;

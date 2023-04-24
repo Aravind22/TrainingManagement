@@ -99,6 +99,7 @@ public class TrainingController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("trainingList");
 		List<Training> trainingList = trainingService.listAllTraining();
+		System.out.println("TRAININGLIST::=>"+trainingList);
 		mv.addObject("trainingList",trainingList);
 		return mv;
 	}

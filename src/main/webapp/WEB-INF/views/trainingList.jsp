@@ -29,7 +29,7 @@
 		</tr>
 		<c:forEach var="training" items="${trainingList}">
 			<tr><td>${training.trainingID}</td>
-			<td>${training.empId}</td> 
+			<td>${training.employee}</td> 
 			<td>${training.skill.skillName}</td>
 			<td>${training.startDate}</td>
 			<td>${training.endDate}</td>

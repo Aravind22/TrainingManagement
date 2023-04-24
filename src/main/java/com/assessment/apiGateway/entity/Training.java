@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -37,6 +38,12 @@ public class Training {
 	private int score;
 	private boolean status;
 	private String remarks;
+	
+	@ManyToOne
+	@JoinTable(name = "TrainingEmployeeRelation",
+	joinColumns = @JoinColumn(referencedColumnName = "trainingID"),
+	inverseJoinColumns = @JoinColumn(referencedColumnName = "empId"))
+	private Employee employee;
 	
 	public long getTrainingID() {
 		return trainingID;
@@ -106,7 +113,18 @@ public class Training {
 				+ ", startDate=" + startDate + ", endDate=" + endDate + ", score=" + score + ", status=" + status
 				+ ", remarks=" + remarks + "]";
 	}
-	
+	public Skill getSkill() {
+		return skill;
+	}
+	public void setSkill(Skill skill) {
+		this.skill = skill;
+	}
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 	
 	
 }
