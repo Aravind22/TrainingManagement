@@ -115,4 +115,10 @@ public class TrainingService {
 	public Training findBySkill(Skill skill) {
 		return trainingDao.findBySkill(skill);
 	}
+	
+	public Training getTrainingByTrainingId(long trainingId) {
+		Optional<Training> training = trainingDao.findById(trainingId);
+		Training trainingObj = training.get();
+		return trainingObj;
+	}
 }

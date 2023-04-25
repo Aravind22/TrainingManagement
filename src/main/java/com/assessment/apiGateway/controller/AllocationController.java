@@ -1,9 +1,11 @@
 package com.assessment.apiGateway.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,11 +45,16 @@ public class AllocationController {
 	SkillService skillService;
 	
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
-	public ModelAndView ShowAddAllocation() {
+	public ModelAndView ShowAddAllocation(Model model) {
 		AllocationDto allocationDto = new AllocationDto();
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("createAllocation");
 		mv.addObject("allocation",allocationDto);
+		
+		//training DropDown
+		List<Training> trainingDropDown = trainingService.listAllTraining();
+		model.addAttribute("trainingOptions", trainingDropDown);
+		
 		return mv;
 	}
 	
@@ -85,11 +92,17 @@ public class AllocationController {
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView editAllocaitonById(@RequestParam long allocationId) {
+	public ModelAndView editAllocaitonById(@RequestParam long allocationId, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("createAllocation");
 		AllocationDto allocationDto = allocationService.getAllocationById(allocationId);
 		modelAndView.addObject("allocation", allocationDto);
+		
+
+		//training DropDown
+		List<Training> trainingDropDown = trainingService.listAllTraining();
+		model.addAttribute("trainingOptions", trainingDropDown);
+		
 		return modelAndView;
 	}
 	

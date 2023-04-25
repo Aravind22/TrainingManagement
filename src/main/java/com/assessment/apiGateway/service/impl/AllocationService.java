@@ -19,6 +19,7 @@ import com.assessment.apiGateway.dao.EmployeeDao;
 import com.assessment.apiGateway.dto.AllocationDto;
 import com.assessment.apiGateway.dto.EmployeeDto;
 import com.assessment.apiGateway.dto.SkillDto;
+import com.assessment.apiGateway.dto.TrainingDto;
 import com.assessment.apiGateway.entity.Allocation;
 import com.assessment.apiGateway.entity.Employee;
 import com.assessment.apiGateway.entity.Skill;
@@ -57,8 +58,7 @@ public class AllocationService {
 		Allocation allocation = new Allocation();
 		BeanUtils.copyProperties(allocationDto, allocation);
 		EmployeeDto empObj = empService.getEmployeeById(allocationDto.getEmpId());
-		Skill skillObj = skillService.findBySkillName(allocationDto.getSkillName());
-		Training trainObj = trainingService.findBySkill(skillObj);
+		Training trainObj = trainingService.getTrainingByTrainingId(allocationDto.getTrainingId());
 		allocation.setEmployee(empConverter.convertToEntity(empObj));
 		allocation.settraining(trainObj);
 		if(allocatiDao.save(allocation) != null) {
@@ -87,6 +87,7 @@ public class AllocationService {
 			allocationDto.setRemarks(allocation.get().getRemarks());
 			allocationDto.setEmpId(allocation.get().getEmployee().getEmpId());
 			allocationDto.setSkillName(allocation.get().gettraining().getskill().getSkillName());
+			allocationDto.setTrainingId(allocation.get().gettraining().getTrainingID());
 			return allocationDto;
 		}
 		return null;

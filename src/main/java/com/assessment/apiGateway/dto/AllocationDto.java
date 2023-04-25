@@ -11,13 +11,30 @@ import com.assessment.apiGateway.entity.Training;
 public class AllocationDto {
 
 	private long allocationId;
-	
+	private long trainingId;
 	private String skillName;
 	private long empId;
 	private int score;
 	private String status;
 	private String remarks;
 	
+	public AllocationDto(long allocationId, long trainingId, String skillName, long empId, int score, String status,
+			String remarks) {
+		super();
+		this.allocationId = allocationId;
+		this.trainingId = trainingId;
+		this.skillName = skillName;
+		this.empId = empId;
+		this.score = score;
+		this.status = status;
+		this.remarks = remarks;
+	}
+	public long getTrainingId() {
+		return trainingId;
+	}
+	public void setTrainingId(long trainingId) {
+		this.trainingId = trainingId;
+	}
 	public long getAllocationId() {
 		return allocationId;
 	}

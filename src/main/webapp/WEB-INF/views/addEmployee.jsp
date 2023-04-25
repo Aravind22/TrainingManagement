@@ -13,6 +13,7 @@
 
 </head>
 <body>
+	<jsp:include page="header.jsp" />
 	<form:form action="addEmployee" modelAttribute="employee">
 		<c:set var="pageTitle" value="Add Employee" />
 		<c:if test="${employee.empId != 0}">

@@ -11,23 +11,22 @@
 <title>Create Training</title>
 </head>
 <body>
+	<jsp:include page="header.jsp" />
 	<div class="container">
-	<h2 align="center">Add Training</h2>
+		<h2 align="center">Add Training</h2>
 		<mvc:form cssClass="form-horizontal" modelAttribute="training"
 			action="add" method="post">
 			<table class="table table-striped">
 				<tr>
 					<td>
 					<td>Skills</td>
-					<td>
-							<mvc:select path="skill">
-							<mvc:option value="-" label="Please Select"/>
-								<c:forEach var="skillVal" items="${skillOptions}">
-									<mvc:option value="${skillVal.skillName}"
-										label="${skillVal.skillName}" />
-								</c:forEach>
-							</mvc:select>
-					</td>
+					<td><mvc:select path="skill">
+							<mvc:option value="-" label="Please Select" />
+							<c:forEach var="skillVal" items="${skillOptions}">
+								<mvc:option value="${skillVal.skillName}"
+									label="${skillVal.skillName}" />
+							</c:forEach>
+						</mvc:select></td>
 
 				</tr>
 				<tr>
