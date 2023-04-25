@@ -27,7 +27,7 @@ public class Employee {
 	private long empId;
 	private String empName;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Skill> skillList;
 	
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)

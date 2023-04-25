@@ -2,6 +2,7 @@ package com.assessment.apiGateway.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.assessment.apiGateway.converter.EmployeeConverter;
 import com.assessment.apiGateway.dao.EmployeeDao;
 import com.assessment.apiGateway.dto.EmployeeDto;
 import com.assessment.apiGateway.entity.Employee;
+import com.assessment.apiGateway.entity.Skill;
 
 @Service
 public class EmployeeService {
@@ -22,12 +24,15 @@ public class EmployeeService {
 	private EmployeeConverter empConverter;
 	
 	public EmployeeDto addEmployee(EmployeeDto emDto) {
-		logger.info(emDto);
-		logger.info("####################################");
 		Employee emp = empConverter.convertToEntity(emDto);
-		emp.setSkillList(emDto.getSkillSet());
-		logger.info(emp);
-		logger.info("====================================");
+		 Optional<Employee> exisingEmployee = empDao.findById(emDto.getEmpId());
+		 if(exisingEmployee.isPresent()) {
+			 Set<Skill> skillData = exisingEmployee.get().getSkillList();
+			 emp.setSkillList(skillData);
+		 }
+		 else {
+			 emp.setSkillList(emDto.getSkillSet());	 
+		 }
 		if(empDao.save(emp) != null) {
 			emDto.setEmpId(emp.getEmpId());
 			return emDto;
@@ -36,8 +41,6 @@ public class EmployeeService {
 	}
 	
 	public List<Employee> getAllEmployees() {
-		logger.info(" EMP LIST ==================================== EMP LIST");
-//		logger.info(empDao.findAll().get(0).toString()+"sssssss");
 		return empDao.findAll();
 	}
 	
