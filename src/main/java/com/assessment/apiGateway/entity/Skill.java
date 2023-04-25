@@ -22,7 +22,7 @@ public class Skill {
 	private String skillName;
 	private String category;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	Set<Employee> employeeList;
 	
 	@OneToMany(mappedBy = "skill", cascade = CascadeType.ALL) // casecade purpose is if we deleted relavent mapped data also will delete

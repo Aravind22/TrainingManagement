@@ -1,5 +1,7 @@
 package com.assessment.apiGateway.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -41,6 +43,8 @@ public class EmployeeService {
 	}
 	
 	public List<Employee> getAllEmployees() {
+		logger.info(empDao.findAll());
+		logger.info("==============getAllEmployees=============");
 		return empDao.findAll();
 	}
 	
@@ -57,6 +61,15 @@ public class EmployeeService {
 	
 	public void deleteByEmployeeId(long id) {
 		empDao.deleteById(id);
+	}
+	
+	public Set<Employee> filterEmployeeByIdAndSkillIds(long empId, Set<Long> skillIds) {
+		List<Employee> data = empDao.findByEmpIdOrSkillListSkillIdIn(empId, skillIds);
+		Set<Employee> empSet = new HashSet<Employee>();
+		for(Employee e: data) {
+			empSet.add(e);
+		}
+		return empSet;
 	}
 	
 }

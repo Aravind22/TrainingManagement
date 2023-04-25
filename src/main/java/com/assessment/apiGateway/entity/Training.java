@@ -3,6 +3,7 @@ package com.assessment.apiGateway.entity;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class Training {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long trainingID;
 	
-	@ManyToOne()
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinTable(name = "TrainingSkillRelation", 
 	joinColumns = @JoinColumn(referencedColumnName = "trainingID"),
 	inverseJoinColumns = @JoinColumn(referencedColumnName = "skillId")

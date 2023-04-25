@@ -2,6 +2,7 @@ package com.assessment.apiGateway.controller;
 
 import javax.validation.Valid;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ import com.assessment.apiGateway.service.impl.SkillService;
 @RequestMapping("/skill")
 public class SkillController {
 
+	Logger logger = Logger.getLogger(SkillController.class.getName());
 	@Autowired
 	SkillService skillService;
 	
@@ -78,6 +80,14 @@ public class SkillController {
 	@RequestMapping(value = "/delete/{skillId}", method = RequestMethod.GET)
 	public String deleteSkillById(@PathVariable long skillId) {
 		skillService.deleteSkillById(skillId);
+		return "redirect:/skill/";
+	}
+	
+	@RequestMapping(value="/employee/{skillId}", method=RequestMethod.GET)
+	public String getEmployeeBySkillId(@PathVariable long skillId) {
+		SkillDto data = skillService.getSkillById(skillId);
+		logger.info("=========================");
+		logger.info(data);
 		return "redirect:/skill/";
 	}
 }
