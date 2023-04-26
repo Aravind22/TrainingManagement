@@ -2,6 +2,9 @@ package com.htc.trainingMgt.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +49,11 @@ public class SkillService {
 	
 	public Skill findBySkillName(String skillName) {
 		return skillDao.findBySkillName(skillName);
+	}
+	
+	public Set<Skill> findBySkillIds(Set<Long> skillIds) {
+		List<Skill> skills = skillDao.findAllById(skillIds);
+		Set<Skill> skillSet = skills.stream().collect(Collectors.toSet());
+		return skillSet;
 	}
 }

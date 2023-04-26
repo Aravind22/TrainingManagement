@@ -2,6 +2,7 @@ package com.htc.trainingMgt.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,21 @@ public class EmployeeController {
 	SkillService skillService;
 
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
-	public ModelAndView ShowAddEmployee() {
+	public ModelAndView ShowAddEmployee(Model model) {
 		EmployeeDto empDto = new EmployeeDto();
 		empDto.setDisabled("notdisabled");
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("addEmployee");
 		mv.addObject("employee", empDto);
+		
+		// DropDown Skill
+		List<Skill> skillList = skillService.getAllSkills();
+		List<SkillOptionDto> options = new ArrayList<SkillOptionDto>();
+		skillList.forEach(skill -> {
+			options.add(new SkillOptionDto(skill.getSkillId(), skill.getSkillName()));
+		});
+		model.addAttribute("skillOptions", options);
+		
 		return mv;
 	}
 
@@ -123,12 +133,24 @@ public class EmployeeController {
 
 //	Edit Employee
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView getEmployeeById(@RequestParam long empId) {
+	public ModelAndView getEmployeeById(@RequestParam long empId, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("addEmployee");
 		EmployeeDto data = empService.getEmployeeById(empId);
 		data.setDisabled("disabled");
 		modelAndView.addObject("employee", data);
+		
+		// DropDown Skill
+		List<Skill> skillList = skillService.getAllSkills();
+		List<SkillOptionDto> options = new ArrayList<SkillOptionDto>();
+		Set<Skill> empSkills = data.getSkillSet();
+		skillList.forEach(skill -> {
+			String selected = empSkills.stream().anyMatch(s -> skill.getSkillId() == s.getSkillId()) ? "selected": "";
+			options.add(new SkillOptionDto(skill.getSkillId(), skill.getSkillName(), selected));
+		});
+		model.addAttribute("skillOptions", options);
+		
+		
 		return modelAndView;
 	}
 
@@ -175,6 +197,15 @@ public class EmployeeController {
 		model.addAttribute("skillOptions", options);
 
 		return mv;
+	}
+	
+	public boolean hasSkillId(Set<Skill> skills, long skillId) {
+	    for (Skill skill : skills) {
+	        if (skill.getSkillId() == skillId) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
 }

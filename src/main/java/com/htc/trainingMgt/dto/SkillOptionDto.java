@@ -20,4 +20,14 @@ public class SkillOptionDto {
 	private long skillId;
 	
 	private String skillName;
+	
+	private String selected;
+
+	public SkillOptionDto(long skillId, String skillName) {
+		super();
+		this.skillId = skillId;
+		this.skillName = skillName;
+	}
+	
+	
 }

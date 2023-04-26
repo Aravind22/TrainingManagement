@@ -25,6 +25,9 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeConverter empConverter;
 	
+	@Autowired
+	private SkillService skillService;
+	
 	public EmployeeDto addEmployee(EmployeeDto emDto) {
 		Employee emp = empConverter.convertToEntity(emDto);
 		 Optional<Employee> exisingEmployee = empDao.findById(emDto.getEmpId());
@@ -35,6 +38,8 @@ public class EmployeeService {
 		 else {
 			 emp.setSkillList(emDto.getSkillSet());	 
 		 }
+		 Set<Skill> skills = skillService.findBySkillIds(emDto.getSkillIds());
+		 emp.setSkillList(skills);
 		if(empDao.save(emp) != null) {
 			emDto.setEmpId(emp.getEmpId());
 			return emDto;

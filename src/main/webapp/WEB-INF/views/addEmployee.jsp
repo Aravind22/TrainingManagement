@@ -25,7 +25,8 @@
 			<tr>
 				<td>EmployeeId</td>
 				<td><form:input id="empId" path="empId"
-						value="${employee.empId}" disabled="${employee.empId ne 0 && not empty employee.empId}" /></td>
+						value="${employee.empId}"
+						disabled="${employee.empId ne 0 && not empty employee.empId}" /></td>
 				<td><form:errors path="empId" cssClass="error" /></td>
 			</tr>
 			<tr hidden>
@@ -39,6 +40,16 @@
 				<td><form:input id="empName" path="empName"
 						value="${employee.empName}" /></td>
 				<td><form:errors path="empName" cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td>Skills</td>
+				<td><form:select path="skillIds" multiple="multiple">
+						<form:option value="0" label="Please Select" />
+						<c:forEach var="skillVal" items="${skillOptions}">
+							<form:option value="${skillVal.skillId}"
+								label="${skillVal.skillName}"  selected="${skillVal.selected}"/>
+						</c:forEach>
+					</form:select></td>
 			</tr>
 			<tr hidden>
 				<td>Disabled</td>
