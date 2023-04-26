@@ -9,6 +9,6 @@
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	<h3>Error in creating Training</h3>
+	<h3>Error in creating Skill</h3>
 </body>
 </html>

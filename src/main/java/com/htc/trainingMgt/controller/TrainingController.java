@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +24,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.htc.trainingMgt.dao.TrainingDao;
 import com.htc.trainingMgt.dto.EmployeeDto;
+import com.htc.trainingMgt.dto.EmployeeFilterDto;
 import com.htc.trainingMgt.dto.SkillOptionDto;
 import com.htc.trainingMgt.dto.TrainingDto;
+import com.htc.trainingMgt.dto.TrainingFilterDto;
 import com.htc.trainingMgt.entity.Skill;
 import com.htc.trainingMgt.entity.Training;
 import com.htc.trainingMgt.service.impl.EmployeeService;
@@ -34,6 +37,8 @@ import com.htc.trainingMgt.service.impl.TrainingService;
 @Controller
 @RequestMapping("/training")
 public class TrainingController {
+	
+	Logger logger = Logger.getLogger(TrainingController.class.getName());
 	
 	@Autowired
 	TrainingService trainingService;
@@ -96,12 +101,16 @@ public class TrainingController {
 	
 	@GetMapping(value = "/")
 	public ModelAndView listAllTrainings() {
-		System.out.println("=================================");
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("trainingList");
 		List<Training> trainingList = trainingService.listAllTraining();
 		System.out.println("TRAININGLIST::=>"+trainingList);
 		mv.addObject("trainingList",trainingList);
+		
+
+		TrainingFilterDto filterObj = new TrainingFilterDto();
+		mv.addObject("filterObj", filterObj);
+		
 		return mv;
 	}
 	
@@ -124,6 +133,18 @@ public class TrainingController {
 	public String deleteTrainingById(@PathVariable long trainingId) {
 		trainingService.deleteTrainingById(trainingId);
 		return "redirect:/training/";
+	}
+	
+	@RequestMapping(path = "search", method = RequestMethod.POST)
+	public ModelAndView filtertraining(@ModelAttribute(value = "filterObj") @Validated TrainingFilterDto trainingFilterDto,
+			RedirectAttributes redirectAttributes, Model model) {
+		logger.info(trainingFilterDto);
+		logger.info("============= TRANING FILTER DTO =============");
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("trainingList");
+		List<Training> data = trainingService.getTrainingsAfterFilter(trainingFilterDto);
+		mv.addObject("trainingList", data);
+		return mv;
 	}
 
 }

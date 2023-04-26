@@ -2,6 +2,8 @@ package com.htc.trainingMgt.dto;
 
 import java.util.Set;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
@@ -23,7 +25,8 @@ import lombok.ToString;
 public class EmployeeDto {
 
 	@NotNull(message = "Employee ID can't be null")
-	private long empId;
+	@Min(value = 1, message = "Employee ID should be a valid long value")
+	private Long empId;
 	
 	@NotNull(message = "Employee name can't be null")
 	private String empName;
@@ -31,5 +34,7 @@ public class EmployeeDto {
 	private String disabled;
 	
 	private Set<Skill> skillSet;
+	
+	private Set<Long> skillIds;
 
 }

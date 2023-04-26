@@ -18,26 +18,26 @@
 			<a href="<c:url value="/employee/add" />">Add Employee</a>
 		</h4>
 		<h2>${employeeAdded}</h2>
+		
 		<form:form action="search" modelAttribute="filterObj">
 			<table>
+
 				<tr>
-				<tr>
-				<tr>EmployeeId
-				</tr>
-				<td><form:input id="empId" path="empId"
-						value="${employee.empId}" /></td>
-				</tr>
-				<td><form:select path="skillIds" multiple="multiple">
-						<form:option value="0" label="Please Select" />
-						<c:forEach var="skillVal" items="${skillOptions}">
-							<form:option value="${skillVal.skillId}"
-								label="${skillVal.skillName}" />
-						</c:forEach>
-					</form:select></td>
-				<td>
-					<button type="submit" class="btn btn-default">Submit</button> 
-						<button type="reset" onclick="location.href='/employee/'">Cancel</button>
-				</td>
+					<td>EmployeeId</td>
+					<td><form:input id="empId" path="empId"
+							value="${employee.empId}" /></td>
+					<td><form:select path="skillIds" multiple="multiple">
+							<form:option value="0" label="Please Select" />
+							<c:forEach var="skillVal" items="${skillOptions}">
+								<form:option value="${skillVal.skillId}"
+									label="${skillVal.skillName}" />
+							</c:forEach>
+						</form:select></td>
+					<td>
+						<button type="submit" class="btn btn-default">Apply
+							Filter</button>
+						<button type="reset" onclick="location.href='/employee/'">Reset</button>
+					</td>
 				</tr>
 			</table>
 		</form:form>

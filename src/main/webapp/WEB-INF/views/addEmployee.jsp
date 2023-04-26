@@ -16,7 +16,7 @@
 	<jsp:include page="header.jsp" />
 	<form:form action="addEmployee" modelAttribute="employee">
 		<c:set var="pageTitle" value="Add Employee" />
-		<c:if test="${employee.empId != 0}">
+		<c:if test="${employee.empId != 0 && not empty employee.empId}">
 			<c:set var="pageTitle" value="Update Employee" />
 		</c:if>
 		<h2 align="center">${pageTitle}</h2>
@@ -25,7 +25,7 @@
 			<tr>
 				<td>EmployeeId</td>
 				<td><form:input id="empId" path="empId"
-						value="${employee.empId}" disabled="${employee.empId ne 0}" /></td>
+						value="${employee.empId}" disabled="${employee.empId ne 0 && not empty employee.empId}" /></td>
 				<td><form:errors path="empId" cssClass="error" /></td>
 			</tr>
 			<tr hidden>
@@ -47,11 +47,11 @@
 				<td><form:errors path="disabled" cssClass="error" /></td>
 			</tr>
 			<tr>
-				<c:if test="${employee.empId != 0}">
+				<c:if test="${employee.empId != 0 && not empty employee.empId}">
 					<td><input id="updateBtn" type="submit"
 						value="Update Employee" /></td>
 				</c:if>
-				<c:if test="${employee.empId == 0}">
+				<c:if test="${employee.empId == 0 || empty employee.empId}">
 					<td><input type="submit" value="Add Employee" /></td>
 				</c:if>
 			</tr>

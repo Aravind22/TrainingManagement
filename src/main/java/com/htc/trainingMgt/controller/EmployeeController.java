@@ -76,6 +76,9 @@ public class EmployeeController {
 			BindingResult rslt, RedirectAttributes redirectAttributes) {
 		EmployeeDto empDto = new EmployeeDto();
 		String sucessMessage = null;
+		if(rslt.hasErrors()) {
+			return "addEmployee";
+		}
 		if (employeeDto.getDisabled().equals("disabled")) {
 			empDto = empService.addEmployee(employeeDto);
 			sucessMessage = empDto.getEmpName() + " updated Successfully!";

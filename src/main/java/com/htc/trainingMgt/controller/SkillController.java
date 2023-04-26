@@ -37,7 +37,11 @@ public class SkillController {
 	@Validated SkillDto skillDto,BindingResult rslt, 
 	RedirectAttributes redirectAttrs) {
 		if(rslt.hasErrors()) {
-			System.out.println(rslt.getAllErrors());
+			logger.info(rslt.getAllErrors());
+		}
+		Skill data = skillService.findBySkillName(skillDto.getSkillName());
+		if(data!= null) {
+			return "addSkillFailure";
 		}
 		Boolean result = skillService.addSkill(skillDto);
 		if(result) {

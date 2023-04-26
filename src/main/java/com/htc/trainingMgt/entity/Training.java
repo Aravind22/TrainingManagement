@@ -1,5 +1,6 @@
 package com.htc.trainingMgt.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -34,8 +35,8 @@ public class Training {
 	@OneToMany
 	private List<Allocation> allocationList;
 	
-	private String startDate;
-	private String endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	
 	private int score;
 	private boolean status;
@@ -65,16 +66,16 @@ public class Training {
 	public void setAllocationList(List<Allocation> allocationList) {
 		this.allocationList = allocationList;
 	}
-	public String getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(String startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-	public String getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(String endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 	public int getScore() {
@@ -95,7 +96,7 @@ public class Training {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	public Training(Skill skill, List<Allocation> allocationList, String startDate, String endDate, int score,
+	public Training(Skill skill, List<Allocation> allocationList, LocalDate startDate, LocalDate endDate, int score,
 			boolean status, String remarks) {
 		super();
 		this.skill = skill;

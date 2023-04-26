@@ -1,5 +1,6 @@
 package com.htc.trainingMgt.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,7 @@ import com.htc.trainingMgt.dao.TrainingDao;
 import com.htc.trainingMgt.dto.EmployeeDto;
 import com.htc.trainingMgt.dto.SkillDto;
 import com.htc.trainingMgt.dto.TrainingDto;
+import com.htc.trainingMgt.dto.TrainingFilterDto;
 import com.htc.trainingMgt.entity.Allocation;
 import com.htc.trainingMgt.entity.Employee;
 import com.htc.trainingMgt.entity.Skill;
@@ -48,7 +50,7 @@ public class TrainingService {
 	
 	@Autowired
 	EmployeeConverter employeeConverter;
-	
+	 
 	@Autowired EmployeeService empService;
 	
 	Logger logger = Logger.getLogger(TrainingService.class.getCanonicalName());
@@ -63,12 +65,17 @@ public class TrainingService {
 		EmployeeDto empDto = empService.getEmployeeById(trainingDto.getEmpId());
 		Employee emp = employeeConverter.convertToEntity(empDto);
 		training.setEmployee(emp);
-		training.setskill(skillObj);
+		training.setSkill(skillObj);
 //		training.se
 		logger.info(training.toString());
 		logger.info(training.getSkill().toString());
+		logger.info(trainingDto.getStartDate()+ trainingDto.getEndDate());
+		LocalDate startDate = LocalDate.parse(trainingDto.getStartDate());
+		LocalDate endDate = LocalDate.parse(trainingDto.getEndDate());
+		training.setStartDate(startDate);
+		training.setEndDate(endDate);
 		logger.info("============TRAINING BEFORE SAVE DATA============");
-		logger.info(training.getskill().toString());
+		logger.info(training.getSkill().toString());
 		if(trainingDao.save(training) != null) {
 			trainingDto.setTrainingID(training.getTrainingID());
 			EmployeeDto empData = empService.getEmployeeById(trainingDto.getEmpId());
@@ -104,7 +111,7 @@ public class TrainingService {
 		Training trainingObj = training.get();
 		TrainingDto trainDTO = new TrainingDto();
 		BeanUtils.copyProperties(trainingObj, trainDTO);
-		trainDTO.setSkill(trainingObj.getskill().getSkillName());
+		trainDTO.setSkill(trainingObj.getSkill().getSkillName());
 		return trainDTO;
 	}
 	
@@ -120,5 +127,14 @@ public class TrainingService {
 		Optional<Training> training = trainingDao.findById(trainingId);
 		Training trainingObj = training.get();
 		return trainingObj;
+	}
+	
+	public List<Training> getTrainingsAfterFilter(TrainingFilterDto trainingFilterDto){
+		LocalDate startDate1 = LocalDate.parse(trainingFilterDto.getStartDate());
+		LocalDate startDate2 = LocalDate.parse(trainingFilterDto.getEndDate());
+		LocalDate endDate1 = LocalDate.parse(trainingFilterDto.getStartDate());
+		LocalDate endDate2 = LocalDate.parse(trainingFilterDto.getEndDate());
+		 List<Training> data = trainingDao.findByStartDateBetweenOrEndDateBetween(startDate1, startDate2, endDate1, endDate2);
+		return data;
 	}
 }
