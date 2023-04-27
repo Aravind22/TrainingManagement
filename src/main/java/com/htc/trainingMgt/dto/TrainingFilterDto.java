@@ -22,4 +22,6 @@ public class TrainingFilterDto {
 	private String startDate;
 	
 	private String endDate;
+	
+	private String filterBy;
 }

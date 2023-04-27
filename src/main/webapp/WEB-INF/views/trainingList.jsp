@@ -9,6 +9,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"></link>
+
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/trainingList.js"></script>
+<script>
+
+</script>
 <title>Training management</title>
 </head>
 <body>
@@ -20,7 +27,30 @@
 			<table>
 				<tr>
 				<tr>
+					<p>${filterObj}</p>
 					<td>
+
+<!-- 
+						<div class="btn-group" data-toggle="buttons">
+							<label id="startDate"
+								class="btn btn-secondary ${filterObj.filterBy == 'startDate' ? 'active' : ''}">
+								<mvc:radiobutton path="filterBy" value="startDate" /> Start
+								Date
+							</label> <label id="endDate"
+								class="btn btn-secondary ${filterObj.filterBy == 'endDate' ? 'active' : ''}">
+								<mvc:radiobutton path="filterBy" value="endDate" /> End Date
+							</label>
+						</div>
+						-->
+
+					</td>
+					<td>Filter By</td>
+					<td><mvc:select path="filterBy">
+							<mvc:option value="startDate" label="Start Date" />
+							<mvc:option value="endDate" label="End Date" />
+						</mvc:select></td>
+
+					</div>
 					<td>From</td>
 					<td><mvc:input type="date" path="startDate" /></td>
 					</td>
@@ -29,8 +59,7 @@
 					<td><mvc:input type="date" path="endDate" /></td>
 					</td>
 					<td>
-						<button type="submit" class="btn btn-default">Apply
-							Filter</button>
+						<button type="submit">Apply Filter</button>
 						<button type="reset" onclick="location.href='/training/'">Reset</button>
 					</td>
 				</tr>

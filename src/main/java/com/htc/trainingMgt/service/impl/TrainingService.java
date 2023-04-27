@@ -32,33 +32,34 @@ public class TrainingService {
 
 	@Autowired
 	TrainingDao trainingDao;
-	
+
 	@Autowired
 	SkillsDao skillDao;
-	
+
 	@Autowired
 	SkillService skillService;
-	
+
 	@Autowired
 	AllocationDao allocationDao;
-	
+
 	@Autowired
 	TrainingConverter trainingConverter;
-	
+
 	@Autowired
 	SkillConverter skillConverter;
-	
+
 	@Autowired
 	EmployeeConverter employeeConverter;
-	 
-	@Autowired EmployeeService empService;
-	
+
+	@Autowired
+	EmployeeService empService;
+
 	Logger logger = Logger.getLogger(TrainingService.class.getCanonicalName());
-	
+
 	@Transactional
 	public TrainingDto createTraining(TrainingDto trainingDto) {
 		Skill skillObj = skillDao.findBySkillName(trainingDto.getSkill());
-		if(skillObj == null) {
+		if (skillObj == null) {
 			return null;
 		}
 		Training training = trainingConverter.convertToEntity(trainingDto);
@@ -69,14 +70,14 @@ public class TrainingService {
 //		training.se
 		logger.info(training.toString());
 		logger.info(training.getSkill().toString());
-		logger.info(trainingDto.getStartDate()+ trainingDto.getEndDate());
+		logger.info(trainingDto.getStartDate() + trainingDto.getEndDate());
 		LocalDate startDate = LocalDate.parse(trainingDto.getStartDate());
 		LocalDate endDate = LocalDate.parse(trainingDto.getEndDate());
 		training.setStartDate(startDate);
 		training.setEndDate(endDate);
 		logger.info("============TRAINING BEFORE SAVE DATA============");
 		logger.info(training.getSkill().toString());
-		if(trainingDao.save(training) != null) {
+		if (trainingDao.save(training) != null) {
 			trainingDto.setTrainingID(training.getTrainingID());
 			EmployeeDto empData = empService.getEmployeeById(trainingDto.getEmpId());
 			trainingDto.setTrainerName(empData.getEmpName());
@@ -85,27 +86,27 @@ public class TrainingService {
 		}
 		return null;
 	}
-	
+
 	public Allocation createAllocation(Allocation allocation) {
-		if(allocationDao.save(allocation) != null) {
+		if (allocationDao.save(allocation) != null) {
 			return allocation;
 		}
 		return null;
 	}
-	
-	public List<Training> listAllTraining(){
+
+	public List<Training> listAllTraining() {
 		return trainingDao.findAll();
 	}
-	
+
 	public List<String> listAllSkillNames() {
 		List<Skill> skillList = skillDao.findAll();
 		List<String> skillNames = new ArrayList<String>();
-		for(int i=0;i<skillList.size();i++) {
+		for (int i = 0; i < skillList.size(); i++) {
 			skillNames.add(skillList.get(i).getSkillName());
 		}
 		return skillNames;
 	}
-	
+
 	public TrainingDto getTrainingById(long id) {
 		Optional<Training> training = trainingDao.findById(id);
 		Training trainingObj = training.get();
@@ -114,27 +115,43 @@ public class TrainingService {
 		trainDTO.setSkill(trainingObj.getSkill().getSkillName());
 		return trainDTO;
 	}
-	
+
 	public void deleteTrainingById(long id) {
 		trainingDao.deleteById(id);
 	}
-	
+
 	public Training findBySkill(Skill skill) {
 		return trainingDao.findBySkill(skill);
 	}
-	
+
 	public Training getTrainingByTrainingId(long trainingId) {
 		Optional<Training> training = trainingDao.findById(trainingId);
 		Training trainingObj = training.get();
 		return trainingObj;
 	}
-	
-	public List<Training> getTrainingsAfterFilter(TrainingFilterDto trainingFilterDto){
-		LocalDate startDate1 = LocalDate.parse(trainingFilterDto.getStartDate());
-		LocalDate startDate2 = LocalDate.parse(trainingFilterDto.getEndDate());
-		LocalDate endDate1 = LocalDate.parse(trainingFilterDto.getStartDate());
-		LocalDate endDate2 = LocalDate.parse(trainingFilterDto.getEndDate());
-		 List<Training> data = trainingDao.findByStartDateBetweenOrEndDateBetween(startDate1, startDate2, endDate1, endDate2);
-		return data;
+
+	public List<Training> getTrainingsAfterFilter(TrainingFilterDto trainingFilterDto) {
+		logger.info(trainingFilterDto.getFilterBy());
+		logger.info("============ FFFFFFFFFFFFFFFFFF ===========");
+		if (trainingFilterDto.getFilterBy().equals("startDate")) {
+			LocalDate startDate1 = LocalDate.parse(trainingFilterDto.getStartDate());
+			LocalDate startDate2 = LocalDate.parse(trainingFilterDto.getEndDate());
+			List<Training> data = trainingDao.findByStartDateBetween(startDate1, startDate2);
+			return data;
+		} else if (trainingFilterDto.getFilterBy().equals("endDate")) {
+			LocalDate startDate1 = LocalDate.parse(trainingFilterDto.getStartDate());
+			LocalDate startDate2 = LocalDate.parse(trainingFilterDto.getEndDate());
+			List<Training> data = trainingDao.findByEndDateBetween(startDate1, startDate2);
+			return data;
+		} else {
+			LocalDate startDate1 = LocalDate.parse(trainingFilterDto.getStartDate());
+			LocalDate startDate2 = LocalDate.parse(trainingFilterDto.getEndDate());
+			LocalDate endDate1 = LocalDate.parse(trainingFilterDto.getStartDate());
+			LocalDate endDate2 = LocalDate.parse(trainingFilterDto.getEndDate());
+			List<Training> data = trainingDao.findByStartDateBetweenOrEndDateBetween(startDate1, startDate2, endDate1,
+					endDate2);
+			return data;
+		}
+
 	}
 }
