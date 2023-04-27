@@ -27,7 +27,6 @@
 			<table>
 				<tr>
 				<tr>
-					<p>${filterObj}</p>
 					<td>
 
 <!-- 
