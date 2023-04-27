@@ -33,7 +33,7 @@ public class Employee {
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
 	private Set<Allocation> allocationList;
 	
-	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Training> trainings;
 
 	

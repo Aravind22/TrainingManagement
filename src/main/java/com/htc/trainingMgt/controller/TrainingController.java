@@ -70,7 +70,7 @@ public class TrainingController {
 		System.out.println("TRAIN DATA ====================== TRAIN DATA ");
 		if(trainDto != null && trainDto.getTrainingID()!=0) {
 			redirectAttrs.addFlashAttribute("msg", "Training Added Successfully");
-			return "redirect:/training/addTrainingSuccess";
+			return "redirect:/training/";
 		} else {
 			return "redirect:/training/addTrainingFailure";
 		}
@@ -131,6 +131,8 @@ public class TrainingController {
 	
 	@RequestMapping(value = "/delete/{trainingId}", method = RequestMethod.GET)
 	public String deleteTrainingById(@PathVariable long trainingId) {
+		logger.info("======================== DELETE TRAINING ============");
+		logger.info(trainingId);
 		trainingService.deleteTrainingById(trainingId);
 		return "redirect:/training/";
 	}

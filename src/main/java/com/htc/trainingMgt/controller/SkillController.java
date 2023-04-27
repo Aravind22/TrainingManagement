@@ -46,7 +46,7 @@ public class SkillController {
 		Boolean result = skillService.addSkill(skillDto);
 		if(result) {
 			redirectAttrs.addFlashAttribute("msg", "Skill Added Successfully");
-			return "redirect:/skill/addSkillSuccess";
+			return "redirect:/skill/";
 		} else {
 			return "redirect:/skill/addSkillFailure";
 		}

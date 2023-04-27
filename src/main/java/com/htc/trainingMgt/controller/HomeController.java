@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.htc.trainingMgt.dto.EmployeeFilterDto;
 import com.htc.trainingMgt.service.impl.EmployeeService;
 
 @Controller
@@ -15,10 +16,7 @@ public class HomeController {
 	EmployeeService empService;
 	
 	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public ModelAndView homePage() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("employeeList");
-		mv.addObject("employeeList",empService.getAllEmployees());
-		return mv;
+	public String homePage() {
+		return "redirect:/employee/";
 	}
 }

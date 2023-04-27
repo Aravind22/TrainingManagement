@@ -31,7 +31,7 @@
 				</tr>
 				<tr>
 					<td>
-					<td>Employee Id</td>
+					<td>Trainer Id</td>
 					<td><mvc:input path="empId" /></td>
 					</td>
 				</tr>

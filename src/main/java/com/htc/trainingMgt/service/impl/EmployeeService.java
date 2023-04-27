@@ -38,8 +38,10 @@ public class EmployeeService {
 		 else {
 			 emp.setSkillList(emDto.getSkillSet());	 
 		 }
-		 Set<Skill> skills = skillService.findBySkillIds(emDto.getSkillIds());
-		 emp.setSkillList(skills);
+		 if(emDto.getSkillIds() != null) {
+			 Set<Skill> skills = skillService.findBySkillIds(emDto.getSkillIds());
+			 emp.setSkillList(skills);
+		 }
 		if(empDao.save(emp) != null) {
 			emDto.setEmpId(emp.getEmpId());
 			return emDto;
