@@ -60,14 +60,14 @@ public class TrainingController {
 		System.out.println("OCMMIN"+trainingDto);
 		long empId = trainingDto.getEmpId();
 		EmployeeDto empData = employeeService.getEmployeeById(empId);
-		System.out.println(empData);
-		System.out.println("EMP DATA ====================== EMP DATA ");
+		logger.info(empData);
+		logger.info("EMP DATA ====================== EMP DATA ");
 		if(empData!= null) {
 			trainDto = trainingService.createTraining(trainingDto);
 			redirectAttrs.addFlashAttribute("msg", "Trainer Employee Not available");
 		}
-		System.out.println(trainDto);
-		System.out.println("TRAIN DATA ====================== TRAIN DATA ");
+		logger.info(trainDto);
+		logger.info("TRAIN DATA ====================== TRAIN DATA ");
 		if(trainDto != null && trainDto.getTrainingID()!=0) {
 			redirectAttrs.addFlashAttribute("msg", "Training Added Successfully");
 			return "redirect:/training/";
@@ -109,6 +109,7 @@ public class TrainingController {
 		
 
 		TrainingFilterDto filterObj = new TrainingFilterDto();
+		filterObj.setFilterBy("startDate");
 		mv.addObject("filterObj", filterObj);
 		
 		return mv;
