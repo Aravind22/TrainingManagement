@@ -9,6 +9,27 @@
 <head>
 <meta charset="ISO-8859-1">
 <link href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"></link>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    
+    var multipleCancelButton = new Choices('#skillIds', {
+       removeItemButton: true,
+       maxItemCount:15,
+       searchResultLimit:15,
+       renderChoiceLimit:15
+     }); 
+    
+    
+});
+</script>
+
 <title>Add Employee</title>
 
 </head>
@@ -44,13 +65,13 @@
 			<tr>
 				<td>Skills</td>
 				<td><form:select path="skillIds" multiple="multiple">
-						<form:option value="0" label="Please Select" />
 						<c:forEach var="skillVal" items="${skillOptions}">
 							<form:option value="${skillVal.skillId}"
-								label="${skillVal.skillName}"  selected="${skillVal.selected}"/>
+								label="${skillVal.skillName}" selected="${skillVal.selected}" />
 						</c:forEach>
 					</form:select></td>
 			</tr>
+			
 			<tr hidden>
 				<td>Disabled</td>
 				<td><form:input id="disabled" path="disabled"
