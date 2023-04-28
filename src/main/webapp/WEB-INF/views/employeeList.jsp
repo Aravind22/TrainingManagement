@@ -24,8 +24,6 @@
 		</h4>
 		<h2>${employeeAdded}</h2>
 
-		<input class="form-control" id="filter" type="text"
-			placeholder="Seach here..."> <br>
 		<table class="table table-bordered table-hover">
 		<thead class="table-dark">
 			<tr scope="col">
@@ -74,21 +72,5 @@
 		  </ul>
 		</nav>
 	</div>
-	<script>
-		$(document).ready(function() {
-			$("#filter").on("keyup",
-			function() {
-				var value = $(this).val().toLowerCase();
-				console.log(value);
-				$("#test tr").filter(
-					function() {
-						$(this).toggle($(this)
-								.text()
-							    .toLowerCase()
-								.indexOf(value) > -1)
-					});
-			});
-		});
-	</script>
 </body>
 </html>

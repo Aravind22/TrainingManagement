@@ -9,8 +9,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"></link>
-<script src = "/js/jquery-2.1.1.js"></script>
-<script src = "/js/bootstrap.min.js"></script>
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <link href="<c:url value='/css/style.css'/>" rel="stylesheet"></link>
 <title>Training management</title>
 </head>
@@ -21,8 +21,10 @@
 		<h4 align="right">
 			<a href="<c:url value="/skill/add" />">Add Skill</a>
 		</h4>
-		<input class="form-control" id="filter" type="text"
-			placeholder="Seach here..."> <br> <br/>
+		<mvc:form cssClass="form-horizontal" modelAttribute="skill"
+			action="createSkill" method="post">
+			<mvc:input path="skillName"  placeholder="skillname"/>
+		</mvc:form>
 		<table class="table table-bordered table-hover">
 			<thead class="table-dark">
 				<tr>
@@ -33,54 +35,32 @@
 				</tr>
 			</thead>
 			<c:forEach var="skill" items="${skillList}">
-			<tbody id="test">
-				<tr scope="row">
-					<td>${skill.skillId}</td>
-					<td>${skill.skillName}</td>
-					<td>${skill.category}</td>
-					<td>
-						<a href="/skill/edit?skillId=${skill.skillId}">
-							<img src="/images/edit.png" alt="Edit">
-						</a>
-						<a href="/skill/delete/${skill.skillId}">
-							<img src="/images/delete.png" alt="Delete" style="margin-left: 16px;">
-						</a>
-					</td>
-				</tr>
-			</tbody>
+				<tbody id="test">
+					<tr scope="row">
+						<td>${skill.skillId}</td>
+						<td>${skill.skillName}</td>
+						<td>${skill.category}</td>
+						<td><a href="/skill/edit?skillId=${skill.skillId}"> <img
+								src="/images/edit.png" alt="Edit">
+						</a> <a href="/skill/delete/${skill.skillId}"> <img
+								src="/images/delete.png" alt="Delete" style="margin-left: 16px;">
+						</a></td>
+					</tr>
+				</tbody>
 			</c:forEach>
 		</table>
 		<nav aria-label="...">
-		  <ul class="pagination" style="justify-content: end;">
-		    <li class="page-item disabled">
-		      <a class="page-link" href="#" tabindex="-1">Previous</a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item active">
-		      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item">
-		      <a class="page-link" href="#">Next</a>
-		    </li>
-		  </ul>
+			<ul class="pagination" style="justify-content: end;">
+				<li class="page-item disabled"><a class="page-link" href="#"
+					tabindex="-1">Previous</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item active"><a class="page-link" href="#">2
+						<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+			</ul>
 		</nav>
 	</div>
-	<script>
-		$(document).ready(function() {
-			$("#filter").on("keyup",
-			function() {
-				var value = $(this).val().toLowerCase();
-				console.log(value);
-				$("#test tr").filter(
-					function() {
-						$(this).toggle($(this)
-								.text()
-							    .toLowerCase()
-								.indexOf(value) > -1)
-					});
-			});
-		});
-	</script>
 </body>
 </html>

@@ -62,9 +62,11 @@ public class SkillController {
 	@GetMapping(value = "/")
 	public ModelAndView listAllSkills() {
 		ModelAndView mv = new ModelAndView();
+		Skill skill = new Skill();
 		mv.setViewName("skillList");
 		System.out.println(skillService.getAllSkills());
 		mv.addObject("skillList",skillService.getAllSkills());
+		mv.addObject("skill", skill);
 		return mv;
 	}
 	
