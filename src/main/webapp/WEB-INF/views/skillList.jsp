@@ -21,10 +21,13 @@
 		<h4 align="right">
 			<a href="<c:url value="/skill/add" />">Add Skill</a>
 		</h4>
-		<mvc:form cssClass="form-horizontal" modelAttribute="skill"
-			action="createSkill" method="post">
+		<mvc:form cssClass="form-horizontal" modelAttribute="skillSearch"
+			action="search" method="post">
 			<mvc:input path="skillName"  placeholder="skillname"/>
+			<mvc:input path="skillCategory"  placeholder="skillcategory"/>
+			<button type="submit" style="align-items: center;">Submit</button>
 		</mvc:form>
+		<br />
 		<table class="table table-bordered table-hover">
 			<thead class="table-dark">
 				<tr>

@@ -1,5 +1,8 @@
 package com.htc.trainingMgt.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.jboss.logging.Logger;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.htc.trainingMgt.dto.SkillDto;
 import com.htc.trainingMgt.dto.TrainingDto;
+import com.htc.trainingMgt.dto.searchSkillDto;
 import com.htc.trainingMgt.entity.Skill;
 import com.htc.trainingMgt.entity.Training;
 import com.htc.trainingMgt.service.impl.SkillService;
@@ -59,6 +63,40 @@ public class SkillController {
 		return "createSkill";
 	}
 	
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ModelAndView searchSkill(@ModelAttribute(value = "skillSearch")
+		@Validated searchSkillDto searchDto,BindingResult rslt, 
+		RedirectAttributes redirectAttrs) {
+		List<Skill> skills = new ArrayList<Skill>();
+		ModelAndView mv = new ModelAndView();
+		System.out.println(searchDto);
+		if(!searchDto.getSkillCategory().isEmpty() && !searchDto.getSkillName().isEmpty()) {
+			skills = skillService.searchSkills(searchDto);
+		} else if(searchDto.getSkillCategory().isEmpty() && !searchDto.getSkillName().isEmpty()) {
+			System.out.println("INSIDE");
+			skills = skillService.searchByName(searchDto);
+			System.out.println(skills);
+		} else if(searchDto.getSkillName().isEmpty() && !searchDto.getSkillCategory().isEmpty()){
+			skills = skillService.searchByCategory(searchDto);
+		} else {
+			skills = skillService.getAllSkills();
+		}
+		mv.addObject("skillList", skills);
+		mv.setViewName("skillList");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView searchSkillGET(@ModelAttribute(value = "skillSearch")
+		@Validated searchSkillDto searchDto,BindingResult rslt, 
+		RedirectAttributes redirectAttrs) {
+		ModelAndView mv = new ModelAndView();
+		List<Skill> skills = skillService.searchSkills(searchDto);
+		mv.addObject("skillList", skills);
+		mv.setViewName("skillList");
+		return mv;
+	}
+	
 	@GetMapping(value = "/")
 	public ModelAndView listAllSkills() {
 		ModelAndView mv = new ModelAndView();
@@ -67,6 +105,8 @@ public class SkillController {
 		System.out.println(skillService.getAllSkills());
 		mv.addObject("skillList",skillService.getAllSkills());
 		mv.addObject("skill", skill);
+		searchSkillDto searchSKDto = new searchSkillDto();
+		mv.addObject("skillSearch", searchSKDto);
 		return mv;
 	}
 	
@@ -92,8 +132,7 @@ public class SkillController {
 	@RequestMapping(value="/employee/{skillId}", method=RequestMethod.GET)
 	public String getEmployeeBySkillId(@PathVariable long skillId) {
 		SkillDto data = skillService.getSkillById(skillId);
-		logger.info("=========================");
-		logger.info(data);
 		return "redirect:/skill/";
 	}
+
 }
