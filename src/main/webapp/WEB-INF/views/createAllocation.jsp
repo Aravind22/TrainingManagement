@@ -8,6 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <link href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"></link>
+<link href="<c:url value='/css/style.css'/>" rel="stylesheet"></link>
 <title>Allocation</title>
 </head>
 <body>
@@ -63,8 +64,8 @@
 				<tr>
 					<td></td>
 					<td>
-						<button type="submit" style="align-items: center;">Submit</button>
-						<button type="reset">Clear</button>
+						<button class="customButton" type="submit" style="align-items: center;">Submit</button>
+						<button class="customButton" type="reset">Clear</button>
 					</td>
 					<td></td>
 				</tr>

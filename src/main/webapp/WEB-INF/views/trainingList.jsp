@@ -9,6 +9,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"></link>
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<link href="<c:url value='/css/style.css'/>" rel="stylesheet"></link>
 
 <script src="/js/jquery-2.1.1.js"></script>
 <script src="/js/bootstrap.min.js"></script>
@@ -76,8 +79,7 @@
 				<th>Start Date</th>
 				<th>End Date</th>
 				<th>Status</th>
-				<th>Edit</th>
-				<th>Delete</th>
+				<th>Actions</th>
 			</tr>
 			<c:forEach var="training" items="${trainingList}">
 				<tr>
@@ -88,10 +90,14 @@
 					<td>${training.startDate}</td>
 					<td>${training.endDate}</td>
 					<td>${training.status}</td>
-					<td><a class="nav-link active"
-						href="/training/edit?trainingId=${training.trainingID}">Edit</a></td>
-					<td><a class="nav-link active"
-						href="/training/delete/${training.trainingID}">Delete</a></td>
+					<td>
+						<a href="/training/edit?trainingId=${training.trainingID}">
+							<img src="/images/edit.png" alt="Edit">
+						</a>
+						<a href="/training/delete/${training.trainingID}">
+							<img src="/images/delete.png" alt="Delete" style="margin-left: 16px;">
+						</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

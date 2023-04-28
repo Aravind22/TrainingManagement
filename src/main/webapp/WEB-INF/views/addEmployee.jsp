@@ -11,11 +11,12 @@
 <link href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"></link>
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
-<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-
+<link rel="stylesheet" href="/css/choices.min.css" />
+<script type="text/javascript" src="/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="/js/choices.min.js"></script>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<link href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"></link>
+<link href="<c:url value='/css/style.css'/>" rel="stylesheet"></link>
 <script>
 $(document).ready(function(){
     
@@ -84,7 +85,7 @@ $(document).ready(function(){
 						value="Update Employee" /></td>
 				</c:if>
 				<c:if test="${employee.empId == 0 || empty employee.empId}">
-					<td><input type="submit" value="Add Employee" /></td>
+					<td><input class="customButton" type="submit" value="Add Employee" /></td>
 				</c:if>
 			</tr>
 		</table>

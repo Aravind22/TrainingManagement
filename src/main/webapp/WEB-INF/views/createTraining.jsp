@@ -8,6 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <link href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"></link>
+<link href="<c:url value='/css/style.css'/>" rel="stylesheet"></link>
 <title>Create Training</title>
 </head>
 <body>
@@ -62,8 +63,8 @@
 				<tr>
 					<td></td>
 					<td>
-						<button type="submit" class="btn btn-default">Submit</button>
-						<button type="reset" class="btn btn-default">Clear</button>
+						<button class="customButton" type="submit" class="btn btn-default">Submit</button>
+						<button class="customButton" type="reset" class="btn btn-default">Clear</button>
 					</td>
 					<td></td>
 				</tr>
