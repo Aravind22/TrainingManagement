@@ -12,11 +12,14 @@
 
 
 <link rel="stylesheet" href="/css/choices.min.css" />
+
 <script type="text/javascript" src="/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="/js/choices.min.js"></script>
-<script type="text/javascript" src="/js/jquery.js"></script>
-<link href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"></link>
+
+
 <link href="<c:url value='/css/style.css'/>" rel="stylesheet"></link>
+
+
 <script>
 $(document).ready(function(){
     
