@@ -58,7 +58,7 @@ public class TrainingService {
 
 	@Transactional
 	public TrainingDto createTraining(TrainingDto trainingDto) {
-		Skill skillObj = skillDao.findBySkillName(trainingDto.getSkill());
+		Skill skillObj = skillDao.findBySkillName(trainingDto.getSkill()).get(0);
 		if (skillObj == null) {
 			return null;
 		}
