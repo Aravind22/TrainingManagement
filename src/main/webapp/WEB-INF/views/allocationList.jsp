@@ -8,6 +8,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <link  href="<c:url value='/css/bootstrap.min.css'/>" rel="stylesheet"></link>
+<link href="<c:url value='/css/style.css'/>" rel="stylesheet"></link>
+<script src = "/js/jquery-2.1.1.js"></script>
+<script src = "/js/bootstrap.min.js"></script>
 <title>Allocation</title>
 </head>
 <body>
@@ -17,7 +20,6 @@
 	<h4 align="right"><a href="<c:url value="/allocation/add" />">Create Allocation</a> </h4>
 	<table class="table table-bordered table-striped table-hover">
 		<tr>
-		<th>Id</th>
 		<th>Employee Name</th>
 		<th>Training Id</th>
 		<th>Skill Name</th>
@@ -26,12 +28,9 @@
 		<th>Score</th>
 		<th>Status</th>
 		<th>Remarks</th>
-		<th>Update</th>
-		<th>Delete</th>
-		<th>Complete</th>
+		<th>Actions</th>
 		</tr>
 		<c:forEach var="allocation" items="${allocationList}">
-			<tr><td>${allocation.allocationId}</td> 
 			<td>${allocation.employee.empName}</td>
 			<td>${allocation.training.trainingID}</td>
 			<td>${allocation.training.skill.skillName}</td>
@@ -40,9 +39,17 @@
 			<td>${allocation.score}</td>
 			<td>${allocation.status}</td>
 			<td>${allocation.remarks}</td>
-			<td><a class="nav-link active" href="/allocation/edit?allocationId=${allocation.allocationId}">Update</a></td>
-			<td><a class="nav-link active" href="/allocation/delete/${allocation.allocationId}">Delete</a></td>
-			<td><a class="nav-link active" href="/allocation/allocate/${allocation.allocationId}/${allocation.employee.empId}/${allocation.training.skill.skillId}">Complete</a></td>
+			<td>
+				<a href="/allocation/edit?allocationId=${allocation.allocationId}">
+					<img src="/images/edit.png" alt="Edit"/>
+				</a>
+				<a href="/allocation/delete/${allocation.allocationId}">
+					<img src="/images/delete.png" alt="Delete" />
+				</a>
+				<a href="/allocation/allocate/${allocation.allocationId}/${allocation.employee.empId}/${allocation.training.skill.skillId}">
+					<img src="/images/complete.png" alt="Complete" class="complete-img"/>
+				</a>
+			</td>
 			</tr>
 		</c:forEach>
 	</table>

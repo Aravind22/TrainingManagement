@@ -14,6 +14,7 @@ import com.htc.trainingMgt.converter.SkillConverter;
 import com.htc.trainingMgt.dao.SkillsDao;
 import com.htc.trainingMgt.dto.EmployeeDto;
 import com.htc.trainingMgt.dto.SkillDto;
+import com.htc.trainingMgt.dto.searchSkillDto;
 import com.htc.trainingMgt.entity.Employee;
 import com.htc.trainingMgt.entity.Skill;
 
@@ -48,12 +49,27 @@ public class SkillService {
 	}
 	
 	public Skill findBySkillName(String skillName) {
-		return skillDao.findBySkillName(skillName);
+		return skillDao.findBySkillName(skillName).get(0);
 	}
 	
 	public Set<Skill> findBySkillIds(Set<Long> skillIds) {
 		List<Skill> skills = skillDao.findAllById(skillIds);
 		Set<Skill> skillSet = skills.stream().collect(Collectors.toSet());
 		return skillSet;
+	}
+	
+	public List<Skill> searchSkills(searchSkillDto search) {
+		List<Skill> skills = skillDao.findBySkillNameAndCategory(search.getSkillName(), search.getSkillCategory());
+		return skills;
+	}
+	
+	public List<Skill> searchByName(searchSkillDto search) {
+		List<Skill> skills = skillDao.findBySkillName(search.getSkillName());
+		return skills;
+	}
+	
+	public List<Skill> searchByCategory(searchSkillDto search) {
+		List<Skill> skills = skillDao.findByCategory(search.getSkillCategory());
+		return skills;
 	}
 }
