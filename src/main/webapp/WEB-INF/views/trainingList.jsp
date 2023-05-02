@@ -78,7 +78,6 @@
 				<th>Skill</th>
 				<th>Start Date</th>
 				<th>End Date</th>
-				<th>Status</th>
 				<th>Actions</th>
 			</tr>
 			<c:forEach var="training" items="${trainingList}">
@@ -89,7 +88,7 @@
 
 					<td>${training.startDate}</td>
 					<td>${training.endDate}</td>
-					<td>${training.status}</td>
+				
 					<td>
 						<a href="/training/edit?trainingId=${training.trainingID}">
 							<img src="/images/edit.png" alt="Edit">

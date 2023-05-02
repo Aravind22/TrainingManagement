@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.htc.trainingMgt.dto.AllocationDto;
 import com.htc.trainingMgt.dto.EmployeeDto;
 import com.htc.trainingMgt.dto.TrainingDto;
+import com.htc.trainingMgt.dto.TrainingFilterDto;
 import com.htc.trainingMgt.entity.Allocation;
 import com.htc.trainingMgt.entity.Employee;
 import com.htc.trainingMgt.entity.Skill;
@@ -80,6 +81,10 @@ public class AllocationController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("allocationList");
 		mv.addObject("allocationList",allocationService.getAllAllocation());
+		
+		TrainingFilterDto filterObj = new TrainingFilterDto();
+		filterObj.setFilterBy("startDate");
+		mv.addObject("filterObj", filterObj);
 		return mv;
 	}
 	

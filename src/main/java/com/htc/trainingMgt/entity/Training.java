@@ -18,21 +18,34 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Getter
+@Setter
 public class Training {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long trainingID;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	private String trainingName;
+	
+	@ManyToOne()
 	@JoinTable(name = "TrainingSkillRelation", 
 	joinColumns = @JoinColumn(referencedColumnName = "trainingID"),
 	inverseJoinColumns = @JoinColumn(referencedColumnName = "skillId")
 	)
 	private Skill skill;
 	
-	@OneToMany
+	@OneToMany()
 	private List<Allocation> allocationList;
 	
 	private LocalDate startDate;
@@ -47,87 +60,5 @@ public class Training {
 	joinColumns = @JoinColumn(referencedColumnName = "trainingID"),
 	inverseJoinColumns = @JoinColumn(referencedColumnName = "empId"))
 	private Employee employee;
-	
-	public long getTrainingID() {
-		return trainingID;
-	}
-	public void setTrainingID(long trainingID) {
-		this.trainingID = trainingID;
-	}
-	public Skill getskill() {
-		return skill;
-	}
-	public void setskill(Skill skill) {
-		this.skill = skill;
-	}
-	public List<Allocation> getAllocationList() {
-		return allocationList;
-	}
-	public void setAllocationList(List<Allocation> allocationList) {
-		this.allocationList = allocationList;
-	}
-	public LocalDate getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
-	public int getScore() {
-		return score;
-	}
-	public void setScore(int score) {
-		this.score = score;
-	}
-	public boolean isStatus() {
-		return status;
-	}
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-	public String getRemarks() {
-		return remarks;
-	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-	public Training(Skill skill, List<Allocation> allocationList, LocalDate startDate, LocalDate endDate, int score,
-			boolean status, String remarks) {
-		super();
-		this.skill = skill;
-		this.allocationList = allocationList;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.score = score;
-		this.status = status;
-		this.remarks = remarks;
-	}
-	public Training() {
-		super();
-	}
-	@Override
-	public String toString() {
-		return "Training [trainingID=" + trainingID + ", skill=" + skill + ", allocationList=" + allocationList
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", score=" + score + ", status=" + status
-				+ ", remarks=" + remarks + "]";
-	}
-	public Skill getSkill() {
-		return skill;
-	}
-	public void setSkill(Skill skill) {
-		this.skill = skill;
-	}
-	public Employee getEmployee() {
-		return employee;
-	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-	
 	
 }

@@ -2,6 +2,7 @@ package com.htc.trainingMgt.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,10 +17,10 @@ public class Allocation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long allocationId;
 	
-	@ManyToOne
+	@ManyToOne()
 	private Training training;
 	
-	@ManyToOne
+	@ManyToOne()
 	@JoinTable(name = "AllocationEmployeeRelation",
 	joinColumns = @JoinColumn(referencedColumnName = "allocationId"),
 	inverseJoinColumns = @JoinColumn(referencedColumnName = "empId"))

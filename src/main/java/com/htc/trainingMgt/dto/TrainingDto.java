@@ -26,6 +26,8 @@ public class TrainingDto {
 
 	private long trainingID;
 	
+	private String trainingName;
+	
 	@NotNull(message = "StartDate can't be null")
 	private String startDate;
 	

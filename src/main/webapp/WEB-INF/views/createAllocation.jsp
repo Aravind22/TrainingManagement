@@ -37,7 +37,7 @@
 							<mvc:option value="0" label="Please Select" />
 							<c:forEach var="trainingVal" items="${trainingOptions}">
 								<mvc:option value="${trainingVal.trainingID}"
-									label="${trainingVal.trainingID}" />
+									label="${trainingVal.trainingName}" />
 							</c:forEach>
 						</mvc:select></td>
 					</td>

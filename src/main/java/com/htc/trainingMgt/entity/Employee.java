@@ -20,7 +20,6 @@ import lombok.ToString;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Employee {
 	
 	@Id
@@ -30,21 +29,11 @@ public class Employee {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Skill> skillList;
 	
-	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "employee")
 	private Set<Allocation> allocationList;
 	
-	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
 	private Set<Training> trainings;
-
-	
-	
-	@Override
-	public String toString() {
-		return "Employee [empId=" + empId + ", empName=" + empName + ", skillList=" + skillList + ", allocationList="
-				+ allocationList + ", trainings=" + trainings + "]";
-	}
-
-
 
 	public long getEmpId() {
 		return empId;
@@ -102,6 +91,13 @@ public class Employee {
 
 	public void setTrainings(Set<Training> trainings) {
 		this.trainings = trainings;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", empName=" + empName + "]";
 	}
 	
 	

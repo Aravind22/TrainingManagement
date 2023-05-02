@@ -65,7 +65,10 @@ public class TrainingService {
 		Training training = trainingConverter.convertToEntity(trainingDto);
 		EmployeeDto empDto = empService.getEmployeeById(trainingDto.getEmpId());
 		Employee emp = employeeConverter.convertToEntity(empDto);
+		logger.info(emp.toString());
+		logger.info("------------------------------EMP------------");
 		training.setEmployee(emp);
+		logger.info(training.getEmployee().toString());
 		training.setSkill(skillObj);
 //		training.se
 		logger.info(training.toString());
@@ -76,7 +79,8 @@ public class TrainingService {
 		training.setStartDate(startDate);
 		training.setEndDate(endDate);
 		logger.info("============TRAINING BEFORE SAVE DATA============");
-		logger.info(training.getSkill().toString());
+		logger.info(training.toString());
+		logger.info(training.getEmployee().toString());
 		if (trainingDao.save(training) != null) {
 			trainingDto.setTrainingID(training.getTrainingID());
 			EmployeeDto empData = empService.getEmployeeById(trainingDto.getEmpId());
@@ -110,13 +114,21 @@ public class TrainingService {
 	public TrainingDto getTrainingById(long id) {
 		Optional<Training> training = trainingDao.findById(id);
 		Training trainingObj = training.get();
+		logger.info(trainingObj.toString());
+		logger.info("==========TRAINING OBJECT BEFORE CONVERT");
 		TrainingDto trainDTO = new TrainingDto();
 		BeanUtils.copyProperties(trainingObj, trainDTO);
 		trainDTO.setSkill(trainingObj.getSkill().getSkillName());
+		logger.info("========TRAINING EDIT========");
+		logger.info(trainDTO.toString());
+		trainDTO.setEmpId(trainingObj.getEmployee().getEmpId());
+		trainDTO.setStartDate(trainingObj.getStartDate().toString());
+		trainDTO.setEndDate(trainingObj.getEndDate().toString());
 		return trainDTO;
 	}
 
 	public void deleteTrainingById(long id) {
+//		trainingDao.delete
 		trainingDao.deleteById(id);
 	}
 
