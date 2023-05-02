@@ -22,10 +22,10 @@ public class Skill {
 	private String skillName;
 	private String category;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany()
 	Set<Employee> employeeList;
 	
-	@OneToMany(mappedBy = "skill", cascade = CascadeType.ALL) // casecade purpose is if we deleted relavent mapped data also will delete
+	@OneToMany(mappedBy = "skill") // casecade purpose is if we deleted relavent mapped data also will delete
 	private Set<Training> trainings;
 
 	public long getSkillId() {

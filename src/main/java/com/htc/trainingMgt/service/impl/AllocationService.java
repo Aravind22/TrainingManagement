@@ -86,7 +86,7 @@ public class AllocationService {
 			allocationDto.setScore(allocation.get().getScore());
 			allocationDto.setRemarks(allocation.get().getRemarks());
 			allocationDto.setEmpId(allocation.get().getEmployee().getEmpId());
-			allocationDto.setSkillName(allocation.get().gettraining().getskill().getSkillName());
+			allocationDto.setSkillName(allocation.get().gettraining().getSkill().getSkillName());
 			allocationDto.setTrainingId(allocation.get().gettraining().getTrainingID());
 			return allocationDto;
 		}

@@ -121,6 +121,8 @@ public class TrainingController {
 		modelAndView.setViewName("createTraining");
 		TrainingDto trainDTO = trainingService.getTrainingById(trainingId);
 		modelAndView.addObject("training", trainDTO);
+		logger.info(trainDTO);
+		logger.info("#########################");
 		List<Skill> skillList = skillService.getAllSkills();
 		List<SkillOptionDto> options = new ArrayList<SkillOptionDto>();
 		skillList.forEach(skill->{

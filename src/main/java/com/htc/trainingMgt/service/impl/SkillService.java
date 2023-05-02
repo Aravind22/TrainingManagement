@@ -49,7 +49,11 @@ public class SkillService {
 	}
 	
 	public Skill findBySkillName(String skillName) {
-		return skillDao.findBySkillName(skillName).get(0);
+		List<Skill> data = skillDao.findBySkillName(skillName);
+		if(data.size()>0) {
+			return data.get(0);
+		}
+		else return null;
 	}
 	
 	public Set<Skill> findBySkillIds(Set<Long> skillIds) {

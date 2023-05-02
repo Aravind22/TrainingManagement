@@ -32,6 +32,12 @@
 				</tr>
 				<tr>
 					<td>
+					<td>TrainingId</td>
+					<td><mvc:input path="trainingName" /></td>
+					</td>
+				</tr>
+				<tr>
+					<td>
 					<td>Trainer Id</td>
 					<td><mvc:input path="empId" /></td>
 					</td>
@@ -48,12 +54,7 @@
 					<td><mvc:input type="date" path="endDate" /></td>
 					</td>
 				</tr>
-				<tr>
-					<td>
-					<td>Status</td>
-					<td><mvc:input path="status" /></td>
-					</td>
-				</tr>
+			
 				<tr hidden>
 					<td>
 					<td>Id</td>
